@@ -1,0 +1,4 @@
+Test_maker
+*.o
+Triangle_crossing
+Test_maker.cpp
