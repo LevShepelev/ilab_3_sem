@@ -151,7 +151,7 @@ std::vector<Vector> Triangle_and_line_crossing(Line line, Triangle triangle) //T
     if (p2.Is_point_between_other_points(triangle.p(1), triangle.p(2)) || p2.Is_point_between_other_points(triangle.p(2), triangle.p(3)) || p2.Is_point_between_other_points(triangle.p(3), triangle.p(1)))
         segment.push_back(p2);
 
-    if ((p3.Is_point_between_other_points(triangle.p(1), triangle.p(2)) || p3.Is_point_between_other_points(triangle.p(2), triangle.p(3)) || p3.Is_point_between_other_points(triangle.p(3), triangle.p(1))) && segment.size() < 2)
+    if (segment.size() < 2 && (p3.Is_point_between_other_points(triangle.p(1), triangle.p(2)) || p3.Is_point_between_other_points(triangle.p(2), triangle.p(3)) || p3.Is_point_between_other_points(triangle.p(3), triangle.p(1))) )
         segment.push_back(p3);
 
     return segment;
@@ -181,8 +181,11 @@ void Calculating_the_task()
                         crossing_triangles[triangles[i] -> number()] = true;
                         }
     for (int i = 0; i < N; i++)
+        {
         if (crossing_triangles[i] == true)
             std::cout << i << std::endl;
+        delete triangles[i];
+        }
     
     }
 
