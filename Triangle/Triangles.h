@@ -87,7 +87,7 @@ Vector Intersection_point_on_plane(const Line& line1, const Line& line2, Plane p
         {
         Vector shift_point; //If plane goes through (0, 0, 0) we have to move starting point, shift_point is our shifting
         if (Is_zero(plane.D()))
-            shift_point = plane.N();
+            shift_point = plane.normal();
         else shift_point = Vector(0, 0, 0);
         double s = Comb_mul(line2.point() - shift_point, line1.point() - shift_point, line1.direction()) / Comb_mul(line2.point() - shift_point, line2.direction(), line1.direction());
         return Vector(line2.point().x + s * line2.direction().x, line2.point().y + s * line2.direction().y, line2.point().z + s * line2.direction().z);
@@ -208,11 +208,11 @@ bool comparator_x(Triangle* tr1, Triangle* tr2)
 
 bool Is_point_inside_triangle(const Vector& point, const Triangle& tr1) //The function finds out is point inside the triangle, (triangle and point must lay in one plane)
     {
-    if (Is_zero(point * tr1.plane().N() + tr1.plane().D()))
+    if (Is_zero(point * tr1.plane().normal() + tr1.plane().D()))
         {
-        double  cb1 = Comb_mul(tr1.plane().N(), tr1.p(1) - point, tr1.p(2) - point),
-                cb2 = Comb_mul(tr1.plane().N(), tr1.p(2) - point, tr1.p(3) - point),
-                cb3 = Comb_mul(tr1.plane().N(), tr1.p(3) - point, tr1.p(1) - point);
+        double  cb1 = Comb_mul(tr1.plane().normal(), tr1.p(1) - point, tr1.p(2) - point),
+                cb2 = Comb_mul(tr1.plane().normal(), tr1.p(2) - point, tr1.p(3) - point),
+                cb3 = Comb_mul(tr1.plane().normal(), tr1.p(3) - point, tr1.p(1) - point);
         if ((cb1 >= 0 && cb2 >= 0 && cb3 >= 0) || (cb1 <= 0 && cb2 <= 0 && cb3 <= 0))
             return true;
         else return false; 
@@ -285,7 +285,7 @@ bool Triangle_and_line_interesection_in_3D(const Line& line, const Triangle& tr)
         printf("invalid line\n");
         return false;
         }
-    double t = (-tr.plane().D() - line.point().x * tr.plane().N().x - line.point().y * tr.plane().N().y - line.point().z * tr.plane().N().z) / (line.direction().x + line.direction().y + line.direction().z);
+    double t = (-tr.plane().D() - line.point().x * tr.plane().normal().x - line.point().y * tr.plane().normal().y - line.point().z * tr.plane().normal().z) / (line.direction().x + line.direction().y + line.direction().z);
     return Is_point_inside_triangle(Vector(line.point().x + t * line.direction().x, line.point().y + t * line.direction().y, line.point().z + t * line.direction().z), tr);
     }
 

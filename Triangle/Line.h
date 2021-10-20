@@ -20,12 +20,12 @@ std::ostream& operator << (std::ostream& stream, const Line& line) {return strea
 
 Line::Line(const Plane& first, const Plane& second) // Line constructor, return crossing line of two planes
     {
-    direction_ = Vect_mul(first.N(), second.N());
+    direction_ = Vect_mul(first.normal(), second.normal());
     if (!(direction_ == Vector(0, 0, 0)))
         {
-        double a = ((-second.D()) * first.N() * second.N() + first.D() * second.N() * second.N()) / ((first.N() * second.N()) * (first.N() * second.N()) - (first.N() * first.N()) * (second.N() * second.N()));
-        double b = ((-first.D()) * first.N() * second.N() + second.D() * first.N() * first.N()) / ((first.N() * second.N()) * (first.N() * second.N()) - (first.N() * first.N()) * (second.N() * second.N())); // Geometric Tools for Computer Graphics page 531
-        point_ = first.N() * a + second.N() * b;
+        double a = ((-second.D()) * first.normal() * second.normal() + first.D() * second.normal() * second.normal()) / ((first.normal() * second.normal()) * (first.normal() * second.normal()) - (first.normal() * first.normal()) * (second.normal() * second.normal()));
+        double b = ((-first.D()) * first.normal() * second.normal() + second.D() * first.normal() * first.normal()) / ((first.normal() * second.normal()) * (first.normal() * second.normal()) - (first.normal() * first.normal()) * (second.normal() * second.normal())); // Geometric Tools for Computer Graphics page 531
+        point_ = first.normal() * a + second.normal() * b;
         }
     else if (Is_equal(first, second))
         point_ = Vector (nan(""), nan(""), nan("")); //Planes are equal, we cant create crossing line"
