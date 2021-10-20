@@ -2,6 +2,7 @@
 
 #include "Vector.h"
 #include "Plane.h"
+#include <cmath>
 
 class Line
     {
@@ -52,7 +53,8 @@ bool Is_lines_in_one_plane(Line line_1, Line line_2)
 
 bool Is_point_on_line(Line line, Vector point)
     {
-    if (point - point * line.direction() / Modul(line.direction()) * line.direction() == line.point() - line.point() * line.direction() / Modul(line.direction()) * line.direction())
-        return true;
-    else return false;
+    if (line.Is_valid())
+        if (point - point * line.direction() / sqr_length(line.direction()) * line.direction() == line.point() - line.point() * line.direction() / sqr_length(line.direction()) * line.direction())
+            return true;
+    return false;
     }

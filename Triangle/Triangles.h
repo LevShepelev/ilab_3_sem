@@ -24,6 +24,9 @@ bool Triangle_and_line_interesection_in_3D(const Line& line, const Triangle& tr)
 Plane Search_common_plane(const Line& line1, const Line& line2);
 bool comparator_x(Triangle* tr1, Triangle* tr2);
 bool Will_we_compare(Triangle* triangles[], int i);
+bool Invalid_case_two_line(const Triangle& tr1, const Triangle& tr2);
+bool Invalid_case_Trinagle_line(const Triangle& tr1, const Triangle tr2);
+bool Invalid_case_line_point(const Triangle& tr1, const Triangle tr2);
 
 const char poison = 255;
 
@@ -93,7 +96,6 @@ Vector Intersection_point_on_plane(const Line& line1, const Line& line2, Plane p
 
 bool Triangle_crossing(const Triangle& tr1, const Triangle& tr2) // The function get segments and research theirs mutual arrangement
     {
-    std::cout << tr1.plane() << tr2.plane() << std::endl;
     if (!tr1.Is_valid() || !tr2.Is_valid())
         return Triagnle_crossing_invalide_cases(tr1, tr2);
         
@@ -170,20 +172,15 @@ void Calculating_the_task()
         triangles[i] = new Triangle(p1, p2, p3, i);
         crossing_triangles[i] = false;
         }
-    for (int j = 0; j < N; j++)
-        std::cout << triangles[j] -> plane() << std::endl;
+
     std::sort(triangles, triangles + N, comparator_x);
     for (int i = 1; i < N; i++)
-        {
-        for (int j = 0; j < 3; j++)
-            printf("min(%d) = %lf, max(%d) = %lf\n", i, triangles[i] -> min_coord(j), i - 1, triangles[i - 1] -> max_coord(j));
         if (Triangle_crossing(*triangles[i], *triangles[i - 1]) && Will_we_compare(triangles, i))
             {
             crossing_triangles[triangles[i - 1] -> number()] = true;
             crossing_triangles[triangles[i] -> number()] = true;
             }
-            
-        }
+        
     for (int i = 0; i < N; i++)
         {
         if (crossing_triangles[i] == true)
@@ -225,38 +222,60 @@ bool Is_point_inside_triangle(const Vector& point, const Triangle& tr1) //The fu
 
 bool Triagnle_crossing_invalide_cases(const Triangle& tr1, const Triangle& tr2)
     {
-    printf("invalid\n");
-    for (int i = 1; i <= 3; i++)   //triangle and line
-        if (!tr1.Is_valid() && tr2.Is_valid() && tr1.line(i).Is_valid())
-            return Triangle_and_line_interesection_in_3D(tr1.line(i), tr2);
-
-    for (int j = 1; j <= 3; j++)   //triangle and line
-        if (tr1.Is_valid() && !tr2.Is_valid() && tr2.line(j).Is_valid())
-            return Triangle_and_line_interesection_in_3D(tr2.line(j), tr1);
+    if (Invalid_case_Trinagle_line(tr1, tr2) || Invalid_case_Trinagle_line(tr2, tr1))
+        return true;
             
-    for (int i = 1; i <= 3; i++)   //two lines
-        if (tr1.line(i).Is_valid())
-            for (int j = 1; j <= 3; j++)
-                if (tr2.line(2).Is_valid())
-                    if (Is_lines_in_one_plane(tr1.line(i), tr2.line(j)))
-                        {
-                        Vector p = Intersection_point_on_plane(tr1.line(i), tr2.line(j), Search_common_plane(tr1.line(i), tr2.line(j)));
-                        if (p.Is_point_between_other_points(tr1.p(i), tr1.p(i % 3 + 1)) && p.Is_point_between_other_points(tr2.p(j), tr2.p(j % 3 + 1))) // j % 3 + 1 is next point to j
-                            return true;
-                        }
+    if (Invalid_case_two_line(tr1, tr2))
+        return true;
 
     if (tr1.Is_valid() && !tr2.Is_valid() && Is_point_on_plane(tr1.plane(), tr2.p(1)) && Is_point_inside_triangle(tr2.p(1), tr1) || //one triangle and point
         tr2.Is_valid() && !tr1.Is_valid() && Is_point_on_plane(tr2.plane(), tr1.p(1)) && Is_point_inside_triangle(tr1.p(1), tr2))
         return true;
 
-    if () //to do line and point
-        {
-        }
-    if (!tr1.Is_valid() && !tr2.Is_valid() && (tr1.p(1) == tr2.p(1))) //triangles are points
+    if (Invalid_case_line_point(tr1, tr2) || Invalid_case_line_point(tr2, tr1))
         return true;
 
+    if (!tr1.Is_valid() && !tr2.Is_valid() && (tr1.p(1) == tr2.p(1))) //two points
+        return true;
+
+    return false;      
+    }
+
+bool Invalid_case_line_point(const Triangle& tr1, const Triangle tr2)
+    {
+    for (int i = 1; i <= 3; i++)
+        if (tr1.line(i).Is_valid()) //we suppose tr1 is line, tr2 is point
+            {
+            for (int j = 1; j < 3; j++)
+                {
+                if (Is_point_on_line(tr1.line(i), tr2.p(j)) && (tr2.p(j).Is_point_between_other_points(tr1.p(1), tr1.p(2)) 
+                    || tr2.p(j).Is_point_between_other_points(tr1.p(2), tr1.p(3)) || tr2.p(j).Is_point_between_other_points(tr1.p(3), tr1.p(1))))
+                    return true;
+                }
+            }
     return false;
-                    
+    }
+
+bool Invalid_case_Trinagle_line(const Triangle& tr1, const Triangle tr2)
+    {
+    for (int i = 1; i <= 3; i++)   //triangle and line
+        if (!tr1.Is_valid() && tr2.Is_valid() && tr1.line(i).Is_valid())
+            return Triangle_and_line_interesection_in_3D(tr1.line(i), tr2);
+    return false;
+    }
+
+bool Invalid_case_two_line(const Triangle& tr1, const Triangle& tr2)
+    {
+    for (int i = 1; i <= 3; i++)   //two lines
+        if (tr1.line(i).Is_valid())
+            for (int j = 1; j <= 3; j++)
+                if (tr2.line(2).Is_valid() && Is_lines_in_one_plane(tr1.line(i), tr2.line(j)))
+                    {
+                    Vector p = Intersection_point_on_plane(tr1.line(i), tr2.line(j), Search_common_plane(tr1.line(i), tr2.line(j)));
+                    if (p.Is_point_between_other_points(tr1.p(i), tr1.p(i % 3 + 1)) && p.Is_point_between_other_points(tr2.p(j), tr2.p(j % 3 + 1))) // j % 3 + 1 is next point to j
+                        return true;
+                    }
+    return false;
     }
 
 bool Triangle_and_line_interesection_in_3D(const Line& line, const Triangle& tr)

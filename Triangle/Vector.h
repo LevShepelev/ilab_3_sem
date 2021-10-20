@@ -1,6 +1,8 @@
 #pragma once
 
 #include <cmath>
+#include <iostream>
+
 const double epsilon = 1e-5;
 struct Vector
     {
@@ -26,6 +28,7 @@ Vector Vect_mul   (const Vector& left, const Vector& right)  { return Vector(lef
 double distance   (const Vector& left, const Vector& right)  { return sqrt(pow(left.x - right.x, 2) + pow(left.y - right.y, 2) + pow(left.z - right.z, 2)); }
 double Comb_mul   (const Vector& first, const Vector& second, const Vector& third) {return (first * Vect_mul(second, third)); }
 double Modul      (const Vector& left) { return sqrt(left.x * left.x + left.y * left.y + left.z * left.z); } 
+double sqr_length (const Vector& left) { return left.x * left.x + left.y * left.y + left.z * left.z; }
 double Vector::operator []  (int coord_number) const { if (coord_number == 0)      return x;
                                                        else if (coord_number == 1) return y;
                                                        else if (coord_number == 2) return z;
