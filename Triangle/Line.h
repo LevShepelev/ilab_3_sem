@@ -3,6 +3,7 @@
 #include "Vector.h"
 #include "Plane.h"
 #include <cmath>
+#include <ostream>
 
 class Line
     {

@@ -1,7 +1,8 @@
 #pragma once
 
 #include <cmath>
-#include <iostream>
+#include <istream>
+#include <ostream>
 
 const double epsilon = 1e-5;
 struct Vector

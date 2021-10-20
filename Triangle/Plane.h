@@ -2,6 +2,8 @@
 
 #include "Vector.h"
 #include <cmath>
+#include <ostream>
+#include <istream>
 
 class Plane
     {
@@ -60,9 +62,11 @@ bool Plane::Is_valid() const
     return false;
     }
 
-bool Is_point_on_plane(const Plane plane, const Vector& point)
+bool Is_point_on_plane(const Plane& plane, const Vector& point)
     {
     if (Is_zero(point * plane.normal() + plane.D()))
         return true;
     else return false;
     }
+
+
