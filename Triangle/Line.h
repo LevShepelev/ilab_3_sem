@@ -49,3 +49,10 @@ bool Is_lines_in_one_plane(Line line_1, Line line_2)
     {
     return Is_zero(Comb_mul(line_1.direction(), line_2.direction(), line_1.point() - line_2.point()));
     }
+
+bool Is_point_on_line(Line line, Vector point)
+    {
+    if (point - point * line.direction() / Modul(line.direction()) * line.direction() == line.point() - line.point() * line.direction() / Modul(line.direction()) * line.direction())
+        return true;
+    else return false;
+    }

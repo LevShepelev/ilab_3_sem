@@ -17,15 +17,23 @@ class Plane
         Vector N() const {return N_;}
         bool Is_valid() const;
     };
-std::ostream& operator << (std::ostream& stream, const Plane& plane) {return stream << "A = " << plane.A() << "B = " << plane.B() << "C = " << plane.C() << std::endl;}
+std::ostream& operator << (std::ostream& stream, const Plane& plane) {return stream << "A = " << plane.A() << " B = " << plane.B() << " C = " << plane.C() << " D = " << plane.D() << std::endl;}
 
 Plane::Plane(const Vector& p1, const Vector& p2, const Vector& p3)
     {
     double A = (p2.y - p1.y) * (p3.z - p1.z) - (p2.z - p1.z) * (p3.y - p1.y),
            B = -(p2.x - p1.x) * (p3.z - p1.z) + (p2.z - p1.z) * (p3.x - p1.x),
            C = (p2.x - p1.x) * (p3.y - p1.y) - (p2.y - p1.y) * (p3.x - p1.x);
-    D_ = -p1.x * A - p1.y * B - p1.z * C;
-    N_ = Vector(A, B, C);
+    if ((A != 0 || B != 0 || C != 0) && p1.Is_valid() && p2.Is_valid() && p3.Is_valid())
+        {
+        D_ = -p1.x * A - p1.y * B - p1.z * C;
+        N_ = Vector(A, B, C);
+        }
+    else 
+        {
+        D_ = nan("");
+        N_ = Vector();
+        }
     }
 
 bool Is_parallel(const Plane& plane1, const Plane& plane2)
@@ -51,3 +59,9 @@ bool Plane::Is_valid() const
     return false;
     }
 
+bool Is_point_on_plane(const Plane plane, const Vector& point)
+    {
+    if (Is_zero(point * plane.N() + plane.D()))
+        return true;
+    else return false;
+    }
