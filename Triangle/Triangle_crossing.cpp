@@ -1,4 +1,4 @@
-#include "Triangles.h"
+#include "Triangles_functions.h"
 
 int main()
     {

@@ -10,7 +10,7 @@ class Line
     private: 
         Vector point_, direction_;
     public:
-        Line() : point_(Vector()), direction_(Vector()) {}
+        Line() = default;
         Line(const Vector& p1, const Vector& p2);
         Line(const Plane& first, const Plane& second);
         Vector point() const {return point_;}
