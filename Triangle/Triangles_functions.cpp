@@ -1,5 +1,6 @@
-#include "Triangles.h"
+#include "Triangles_functions.h"
 
+namespace geom{
 
 /// \brief The function searhces crossing point of two lines that lay in one plane
 Vector Intersection_point_on_plane(const Line& line1, const Line& line2, Plane plane)
@@ -36,13 +37,9 @@ bool Triangle_crossing(const Triangle& tr1, const Triangle& tr2)
 
     else 
         {
-        printf("numbers %d, %d\n", tr1.number(), tr2.number());
         Line crossing_line(tr1.plane(), tr2.plane());
-        std::cout << crossing_line;
-        printf("segment 1:\n");
-        std::vector<Vector> segment_1 = Triangle_and_line_crossing(crossing_line, tr1);
-        printf("segment 2:\n");
-        std::vector<Vector> segment_2 = Triangle_and_line_crossing(crossing_line, tr2);
+        std::vector<Vector> segment_1 = Triangle_and_line_crossing(crossing_line, tr1),
+                            segment_2 = Triangle_and_line_crossing(crossing_line, tr2);
         if  (segment_1.size() == 2 && segment_2.size() == 2 &&
             (segment_1[0].Is_point_between_other_points(segment_2[0], segment_2[1]) || segment_1[1].Is_point_between_other_points(segment_2[0], segment_2[1]) ||
              segment_2[0].Is_point_between_other_points(segment_1[0], segment_1[1]) || segment_2[1].Is_point_between_other_points(segment_1[0], segment_1[1])))
@@ -66,11 +63,8 @@ bool Triangle_crossing(const Triangle& tr1, const Triangle& tr2)
 bool Triangles_crossing_in_one_plane(Triangle tr1, Triangle tr2)
     {
     std::vector<Vector> segments[3];
-    printf("segment 0:\n");
     segments[0] = Triangle_and_line_crossing(tr1.line(1), tr2);
-    printf("segment 1:\n");
     segments[1] = Triangle_and_line_crossing(tr1.line(2), tr2);
-    printf("segment 2:\n");
     segments[2] = Triangle_and_line_crossing(tr1.line(3), tr2);
 
     if ((segments[0].size() > 0 || segments[1].size() > 0 || segments[2].size() > 0) || Is_point_inside_triangle(tr1.p(1), tr2) || Is_point_inside_triangle(tr2.p(1), tr1)) //second or, third or cases are about full triangle lay in other 
@@ -95,8 +89,6 @@ std::vector<Vector> Triangle_and_line_crossing(Line line, Triangle triangle)
 
     if (segment.size() < 2 && (p3.Is_point_between_other_points(triangle.p(1), triangle.p(2)) || p3.Is_point_between_other_points(triangle.p(2), triangle.p(3)) || p3.Is_point_between_other_points(triangle.p(3), triangle.p(1))) )
         segment.push_back(p3);
-    for (int i = 0; i < segment.size(); i++)
-        std::cout << segment[i];
     return segment;
     }
 
@@ -104,7 +96,7 @@ std::vector<Vector> Triangle_and_line_crossing(Line line, Triangle triangle)
 /// \brief The function reads triangles points sort them and start crossing
 void Calculating_the_task()
     {
-    unsigned int N = 0;
+    int N = 0;
     std::cin >> N;
     Triangle* triangles[N];
     bool crossing_triangles[N];
@@ -131,7 +123,6 @@ void Calculating_the_task()
             std::cout << i << std::endl;
         delete triangles[i];
         }
-    
     }
 
 
@@ -141,11 +132,9 @@ bool Will_we_compare(Triangle* triangles[], int i, int j)
     if  (((triangles[j] -> min_coord(0) <= triangles[i] -> max_coord(0))
         &&(triangles[j] -> min_coord(1) <= triangles[i] -> max_coord(1))
         &&(triangles[j] -> min_coord(2) <= triangles[i] -> max_coord(2)))
-        || !(triangles[j] -> Is_valid()) || !(triangles[i] -> Is_valid()))
-        {
-        printf("we will compate %d and %d\n", triangles[i] -> number(), triangles[j] -> number());
+        || !(triangles[j] -> Is_valid()) || !(triangles[i] -> Is_valid()))    
         return true;
-        }
+    
     else return false;
     }
 
@@ -182,8 +171,8 @@ bool Triagnle_crossing_invalide_cases(const Triangle& tr1, const Triangle& tr2)
     if (Invalid_case_two_line(tr1, tr2))
         return true;
 
-    if (tr1.Is_valid() && !tr2.Is_valid() && Is_point_on_plane(tr1.plane(), tr2.p(1)) && Is_point_inside_triangle(tr2.p(1), tr1) || //one triangle and point
-        tr2.Is_valid() && !tr1.Is_valid() && Is_point_on_plane(tr2.plane(), tr1.p(1)) && Is_point_inside_triangle(tr1.p(1), tr2))
+    if ((tr1.Is_valid() && !tr2.Is_valid() && Is_point_on_plane(tr1.plane(), tr2.p(1)) && Is_point_inside_triangle(tr2.p(1), tr1)) || //one triangle and point
+        (tr2.Is_valid() && !tr1.Is_valid() && Is_point_on_plane(tr2.plane(), tr1.p(1)) && Is_point_inside_triangle(tr1.p(1), tr2)))
         return true;
 
     if (Invalid_case_line_point(tr1, tr2) || Invalid_case_line_point(tr2, tr1))
@@ -247,14 +236,6 @@ bool Triangle_and_line_interesection_in_3D(const Line& line, const Triangle& tr)
     double t = (-tr.plane().D() - line.point().x * tr.plane().normal().x - line.point().y * tr.plane().normal().y - line.point().z * tr.plane().normal().z) / (line.direction().x + line.direction().y + line.direction().z);
     return Is_point_inside_triangle(Vector(line.point().x + t * line.direction().x, line.point().y + t * line.direction().y, line.point().z + t * line.direction().z), tr);
     }
+}
 
 
-/// \brief The function consturct plane for two lines lay in that plane
-Plane Search_common_plane(const Line& line1, const Line& line2)
-    {
-    if (!(line1.point() == line2.point()))
-        if (!(line1.point() == line2.point() + line2.direction()))
-            return Plane(line1.point(), line2.point(), line2.point() + line2.direction()); //Points can be equal, so we check are they equal and make cases
-        else return Plane(line1.point(), line2.point(), line2.point() + 2 * line2.direction());
-    else return Plane(line1.point(), line2.point() + line2.direction(), line2.point() + 2 * line2.direction());
-    }  

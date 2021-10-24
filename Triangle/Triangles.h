@@ -4,10 +4,11 @@
 #include "Plane.h"
 #include "Vector.h"
 
+namespace geom{
+
 class Line;
 class Plane;
 class Triangle;
-
 const char poison = 255;
 
 class Triangle
@@ -22,7 +23,7 @@ class Triangle
 
     public:
         Triangle(){}
-        Triangle(Vector p1, Vector p2, Vector p3, int n);
+        inline Triangle(Vector p1, Vector p2, Vector p3, int n);
         bool Is_valid() const {return plane_.Is_valid();}
 
     public: //getters
@@ -34,7 +35,7 @@ class Triangle
         unsigned int number() const {return number_;}
     };
 
-Triangle::Triangle(Vector p1, Vector p2, Vector p3, int n) : p_({p1, p2, p3}), plane_(p1, p2, p3), number_(n)
+inline Triangle::Triangle(Vector p1, Vector p2, Vector p3, int n) : p_({p1, p2, p3}), plane_(p1, p2, p3), number_(n)
     {
     for (int i = 0; i < 3; i++)// i is coordinate 0 = x, 1 = y, 2 = z;
         {
@@ -57,4 +58,4 @@ Triangle::Triangle(Vector p1, Vector p2, Vector p3, int n) : p_({p1, p2, p3}), p
     line_[1] = Line(p2, p3);
     line_[2] = Line(p3, p1);
     }
-
+}
