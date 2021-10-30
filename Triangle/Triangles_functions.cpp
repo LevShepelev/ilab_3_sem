@@ -38,12 +38,18 @@ bool Triangle_crossing(const Triangle& tr1, const Triangle& tr2)
     else 
         {
         Line crossing_line(tr1.plane(), tr2.plane());
+        std::cout << crossing_line;
         std::vector<Vector> segment_1 = Triangle_and_line_crossing(crossing_line, tr1),
                             segment_2 = Triangle_and_line_crossing(crossing_line, tr2);
+        for (int i = 0, end = segment_1.size(); i != end; i++)
+            std::cout << segment_1[i];
+        for (int i = 0, end = segment_2.size(); i != end; i++)
+            std::cout << segment_2[i];
         if  (segment_1.size() == 2 && segment_2.size() == 2 &&
             (segment_1[0].Is_point_between_other_points(segment_2[0], segment_2[1]) || segment_1[1].Is_point_between_other_points(segment_2[0], segment_2[1]) ||
              segment_2[0].Is_point_between_other_points(segment_1[0], segment_1[1]) || segment_2[1].Is_point_between_other_points(segment_1[0], segment_1[1])))
             return true;
+       
 
         else if (segment_1.size() == 1 && segment_2.size() == 2 && segment_1[0].Is_point_between_other_points(segment_2[0], segment_2[1]))
             return true;
@@ -80,68 +86,32 @@ std::vector<Vector> Triangle_and_line_crossing(Line line, Triangle triangle)
     Vector p1 = Intersection_point_on_plane(line, triangle.line(1), triangle.plane());
     Vector p2 = Intersection_point_on_plane(line, triangle.line(2), triangle.plane());
     Vector p3 = Intersection_point_on_plane(line, triangle.line(3), triangle.plane());
+    std::cout << p1 << p2 << p3 <<std::endl;
     
-    if (p1.Is_point_between_other_points(triangle.p(1), triangle.p(2)) || p1.Is_point_between_other_points(triangle.p(2), triangle.p(3)) || p1.Is_point_between_other_points(triangle.p(3), triangle.p(1)))
+    if (p1.Is_point_between_other_points(triangle.p(1), triangle.p(2)) || p1.Is_point_between_other_points(triangle.p(2), triangle.p(3)) ||
+        p1.Is_point_between_other_points(triangle.p(3), triangle.p(1))  )
         segment.push_back(p1);
 
-    if (p2.Is_point_between_other_points(triangle.p(1), triangle.p(2)) || p2.Is_point_between_other_points(triangle.p(2), triangle.p(3)) || p2.Is_point_between_other_points(triangle.p(3), triangle.p(1)))
+    if (p2 != p1 && (p2.Is_point_between_other_points(triangle.p(1), triangle.p(2)) || p2.Is_point_between_other_points(triangle.p(2), triangle.p(3)) || 
+        p2.Is_point_between_other_points(triangle.p(3), triangle.p(1))) )
         segment.push_back(p2);
 
-    if (segment.size() < 2 && (p3.Is_point_between_other_points(triangle.p(1), triangle.p(2)) || p3.Is_point_between_other_points(triangle.p(2), triangle.p(3)) || p3.Is_point_between_other_points(triangle.p(3), triangle.p(1))) )
+    if (p3 != p1 && p3 != p2 && segment.size() < 2 && (p3.Is_point_between_other_points(triangle.p(1), triangle.p(2)) || p3.Is_point_between_other_points(triangle.p(2), triangle.p(3)) || 
+        p3.Is_point_between_other_points(triangle.p(3), triangle.p(1))) )
         segment.push_back(p3);
     return segment;
     }
 
 
-/// \brief The function reads triangles points sort them and start crossing
-void Calculating_the_task()
-    {
-    int N = 0;
-    std::cin >> N;
-    Triangle* triangles[N];
-    bool crossing_triangles[N];
-    for (int i = 0; i < N; i++)
-        {
-        Vector p1, p2, p3;
-        std::cin >> p1 >> p2 >> p3;
-        triangles[i] = new Triangle(p1, p2, p3, i);
-        crossing_triangles[i] = false;
-        }
-
-    std::sort(triangles, triangles + N, comparator_x);
-    for (int i = 0; i < N - 1; i++)
-        for (int j = i + 1; j < N; j++)
-            if (Will_we_compare(triangles, i, j) && Triangle_crossing(*triangles[j], *triangles[i]))
-                {
-                crossing_triangles[triangles[i] -> number()] = true;
-                crossing_triangles[triangles[j] -> number()] = true;
-                }
-        
-    for (int i = 0; i < N; i++)
-        {
-        if (crossing_triangles[i] == true)
-            std::cout << i << std::endl;
-        delete triangles[i];
-        }
-    }
-
-
 /// \brief The function finds out can two triangles intersect 
-bool Will_we_compare(Triangle* triangles[], int i, int j)
+bool Will_we_compare(std::vector<Triangle> triangles, int i, int j)
     {
-    if  (((triangles[j] -> min_coord(0) <= triangles[i] -> max_coord(0))
-        &&(triangles[j] -> min_coord(1) <= triangles[i] -> max_coord(1))
-        &&(triangles[j] -> min_coord(2) <= triangles[i] -> max_coord(2)))
-        || !(triangles[j] -> Is_valid()) || !(triangles[i] -> Is_valid()))    
+    if  (((triangles[j].min_coord(0) <= triangles[i].max_coord(0))
+        &&(triangles[j].min_coord(1) <= triangles[i].max_coord(1))
+        &&(triangles[j].min_coord(2) <= triangles[i].max_coord(2)))
+        || !(triangles[j].Is_valid()) || !(triangles[i].Is_valid()))    
         return true;
     
-    else return false;
-    }
-
-
-bool comparator_x(Triangle* tr1, Triangle* tr2)
-    { 
-    if (tr1 -> min_coord(0) - tr2 -> min_coord(0) > epsilon) return true;
     else return false;
     }
 

@@ -22,6 +22,7 @@ struct Vector
 
 bool Is_zero(double value);
 bool operator  == (const Vector& left, const Vector& right);
+bool operator  != (const Vector& left, const Vector& right);
 Vector operator + (const Vector& left, const Vector& right);
 Vector operator - (const Vector& left, const Vector& right);
 Vector operator * (double left, const Vector& right);

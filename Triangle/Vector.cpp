@@ -30,6 +30,9 @@ bool Is_zero(double value)
 
 bool operator  == (const Vector& left, const Vector& right)  { return (Is_zero(left.x - right.x) && Is_zero(left.y - right.y) && Is_zero(left.z - right.z)); }
 
+bool operator  != (const Vector& left, const Vector& right) { return !(left == right); }
+
+
 Vector operator + (const Vector& left, const Vector& right)  { return Vector(left.x + right.x, left.y + right.y, left.z + right.z); }
 
 Vector operator - (const Vector& left, const Vector& right)  { return Vector(left.x - right.x, left.y - right.y, left.z - right.z); }
