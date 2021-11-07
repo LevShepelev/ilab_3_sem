@@ -6,7 +6,6 @@ int main()
     std::cin >> N;
     Matrix<double> matrix(N);
     matrix.Read_matrix();
-    matrix.Print_matrix();
-    std::cout << matrix.Determinant() << std::endl;
-    matrix.Print_matrix();
+    double deter =  matrix.Determinant();
+    std::cout << deter << std::endl;
     }

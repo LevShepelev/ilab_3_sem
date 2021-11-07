@@ -4,6 +4,9 @@ all: build run
 build:
 	g++ -Wall -c -g -O0 Matrix.cpp
 	g++ Matrix.o -o Matrix
+	g++ -c -g -Wall Test_maker.cpp
+	g++ Test_maker.o -o Test_maker
 
 run: build
-	./Matrix < Test.txt
+	./Test_maker
+	
