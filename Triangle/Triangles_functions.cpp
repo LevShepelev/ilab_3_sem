@@ -38,13 +38,8 @@ bool Triangle_crossing(const Triangle& tr1, const Triangle& tr2)
     else 
         {
         Line crossing_line(tr1.plane(), tr2.plane());
-        std::cout << crossing_line;
         std::vector<Vector> segment_1 = Triangle_and_line_crossing(crossing_line, tr1),
                             segment_2 = Triangle_and_line_crossing(crossing_line, tr2);
-        for (int i = 0, end = segment_1.size(); i != end; i++)
-            std::cout << segment_1[i];
-        for (int i = 0, end = segment_2.size(); i != end; i++)
-            std::cout << segment_2[i];
         if  (segment_1.size() == 2 && segment_2.size() == 2 &&
             (segment_1[0].Is_point_between_other_points(segment_2[0], segment_2[1]) || segment_1[1].Is_point_between_other_points(segment_2[0], segment_2[1]) ||
              segment_2[0].Is_point_between_other_points(segment_1[0], segment_1[1]) || segment_2[1].Is_point_between_other_points(segment_1[0], segment_1[1])))
@@ -86,7 +81,6 @@ std::vector<Vector> Triangle_and_line_crossing(Line line, Triangle triangle)
     Vector p1 = Intersection_point_on_plane(line, triangle.line(1), triangle.plane());
     Vector p2 = Intersection_point_on_plane(line, triangle.line(2), triangle.plane());
     Vector p3 = Intersection_point_on_plane(line, triangle.line(3), triangle.plane());
-    std::cout << p1 << p2 << p3 <<std::endl;
     
     if (p1.Is_point_between_other_points(triangle.p(1), triangle.p(2)) || p1.Is_point_between_other_points(triangle.p(2), triangle.p(3)) ||
         p1.Is_point_between_other_points(triangle.p(3), triangle.p(1))  )
