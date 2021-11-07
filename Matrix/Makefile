@@ -8,5 +8,5 @@ build:
 	g++ Test_maker.o -o Test_maker
 
 run: build
-	./Test_maker
+	./Matrix < Test_1.txt
 	
