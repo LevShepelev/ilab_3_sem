@@ -7,10 +7,8 @@ bool Vector::Is_point_between_other_points(Vector p1, Vector p2) const
     if (*this == p1 || *this == p2)
         return true;
     if ((*this).Is_valid() && p1.Is_valid() && p2.Is_valid())
-        {
         if (Is_zero(distance(*this, p1) + distance(*this, p2) - distance(p1, p2)))
             return true;
-        }
     return false;
     }
 

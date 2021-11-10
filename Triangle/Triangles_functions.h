@@ -21,4 +21,5 @@ bool Will_we_compare(std::vector<Triangle> triangles, int i, int j);
 bool Invalid_case_two_line(const Triangle& tr1, const Triangle& tr2);
 bool Invalid_case_Trinagle_line(const Triangle& tr1, const Triangle tr2);
 bool Invalid_case_line_point(const Triangle& tr1, const Triangle tr2);
+bool Is_point_of_Trinagle_inside_segment(std::vector<Vector> segment, int numb, const Triangle& tr);
 };

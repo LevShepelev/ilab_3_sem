@@ -40,6 +40,7 @@ bool Triangle_crossing(const Triangle& tr1, const Triangle& tr2)
         Line crossing_line(tr1.plane(), tr2.plane());
         std::vector<Vector> segment_1 = Triangle_and_line_crossing(crossing_line, tr1),
                             segment_2 = Triangle_and_line_crossing(crossing_line, tr2);
+        std::cout << crossing_line;
         if  (segment_1.size() == 2 && segment_2.size() == 2 &&
             (segment_1[0].Is_point_between_other_points(segment_2[0], segment_2[1]) || segment_1[1].Is_point_between_other_points(segment_2[0], segment_2[1]) ||
              segment_2[0].Is_point_between_other_points(segment_1[0], segment_1[1]) || segment_2[1].Is_point_between_other_points(segment_1[0], segment_1[1])))
@@ -67,8 +68,8 @@ bool Triangles_crossing_in_one_plane(Triangle tr1, Triangle tr2)
     segments[0] = Triangle_and_line_crossing(tr1.line(1), tr2);
     segments[1] = Triangle_and_line_crossing(tr1.line(2), tr2);
     segments[2] = Triangle_and_line_crossing(tr1.line(3), tr2);
-
-    if ((segments[0].size() > 0 || segments[1].size() > 0 || segments[2].size() > 0) || Is_point_inside_triangle(tr1.p(1), tr2) || Is_point_inside_triangle(tr2.p(1), tr1)) //second or, third or cases are about full triangle lay in other 
+    if (Is_point_of_Trinagle_inside_segment(segments[0], 1, tr1) || Is_point_of_Trinagle_inside_segment(segments[1], 2, tr1) || Is_point_of_Trinagle_inside_segment(segments[2], 3, tr1) ||
+        Is_point_inside_triangle(tr1.p(1), tr2) || Is_point_inside_triangle(tr2.p(1), tr1)) //second or, third or cases are about full triangle lay in other 
         return true;
     return false;
     }
@@ -85,15 +86,28 @@ std::vector<Vector> Triangle_and_line_crossing(Line line, Triangle triangle)
     if (p1.Is_point_between_other_points(triangle.p(1), triangle.p(2)) || p1.Is_point_between_other_points(triangle.p(2), triangle.p(3)) ||
         p1.Is_point_between_other_points(triangle.p(3), triangle.p(1))  )
         segment.push_back(p1);
+        
 
     if (p2 != p1 && (p2.Is_point_between_other_points(triangle.p(1), triangle.p(2)) || p2.Is_point_between_other_points(triangle.p(2), triangle.p(3)) || 
         p2.Is_point_between_other_points(triangle.p(3), triangle.p(1))) )
         segment.push_back(p2);
 
+
     if (p3 != p1 && p3 != p2 && segment.size() < 2 && (p3.Is_point_between_other_points(triangle.p(1), triangle.p(2)) || p3.Is_point_between_other_points(triangle.p(2), triangle.p(3)) || 
         p3.Is_point_between_other_points(triangle.p(3), triangle.p(1))) )
         segment.push_back(p3);
+        
     return segment;
+    }
+
+/// \brief The funciton finds, is point of triangle inside segment of crossing line of triangle and another triangle
+// numb is number (numbe of point in the context of triangle) of first point of segment
+bool Is_point_of_Trinagle_inside_segment(std::vector<Vector> segment, int numb, const Triangle& tr)
+    {
+    if ((segment.size() == 2 && (tr.p(numb).Is_point_between_other_points(segment[0], segment[1]) || tr.p(numb % 3 + 1).Is_point_between_other_points(segment[0], segment[1]))) ||
+        (segment.size() == 1 && (tr.p(numb) == segment[0] || tr.p(numb % 3 + 1) == segment[0])))
+        return true;
+    else return false;
     }
 
 
@@ -167,6 +181,7 @@ bool Invalid_case_line_point(const Triangle& tr1, const Triangle tr2)
 
 bool Invalid_case_Trinagle_line(const Triangle& tr1, const Triangle tr2)
     {
+    printf("Invalid: Triangle and line\n");
     for (int i = 1; i <= 3; i++)   //triangle and line
         if (!tr1.Is_valid() && tr2.Is_valid() && tr1.line(i).Is_valid())
             return Triangle_and_line_interesection_in_3D(tr1.line(i), tr2);
@@ -192,12 +207,13 @@ bool Invalid_case_two_line(const Triangle& tr1, const Triangle& tr2)
 /// \brief The function finds out if there's intersecton of line and Triangle in 3D
 bool Triangle_and_line_interesection_in_3D(const Line& line, const Triangle& tr)
     {
+    printf("Tr and line inter\n");
     if (!line.Is_valid())
         {
         printf("invalid line\n");
         return false;
         }
-    double t = (-tr.plane().D() - line.point().x * tr.plane().normal().x - line.point().y * tr.plane().normal().y - line.point().z * tr.plane().normal().z) / (line.direction().x + line.direction().y + line.direction().z);
+    double t = (-tr.plane().D() - line.point().x * tr.plane().normal().x - line.point().y * tr.plane().normal().y - line.point().z * tr.plane().normal().z) / (line.direction().x * tr.plane().normal().x + line.direction().y * tr.plane().normal().y + line.direction().z * tr.plane().normal().z);
     return Is_point_inside_triangle(Vector(line.point().x + t * line.direction().x, line.point().y + t * line.direction().y, line.point().z + t * line.direction().z), tr);
     }
 }

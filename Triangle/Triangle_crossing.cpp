@@ -15,8 +15,8 @@ int main()
         }
 
     std::sort(triangles.begin(), triangles.end(), [] (const geom::Triangle& tr1, const geom::Triangle& tr2) { if (tr1.min_coord(0) - tr2.min_coord(0) > geom::epsilon) 
-                                                                                                    return true;
-                                                                                                 else return false; });
+                                                                                                                return true;
+                                                                                                              else return false; });
     for (int i = 0; i < N - 1; i++)
         for (int j = i + 1; j < N; j++)
             if (geom::Will_we_compare(triangles, i, j) && geom::Triangle_crossing(triangles[j], triangles[i]))
@@ -24,7 +24,7 @@ int main()
                 crossing_triangles[triangles[i].number()] = true;
                 crossing_triangles[triangles[j].number()] = true;
                 }
-        
+            
     for (int i = 0; i < N; i++)
         {
         if (crossing_triangles[i] == true)

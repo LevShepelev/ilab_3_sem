@@ -3,6 +3,7 @@
 #include <cmath>
 #include <istream>
 #include <ostream>
+#include <iostream>
 
 namespace geom{
 
