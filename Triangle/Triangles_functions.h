@@ -6,7 +6,7 @@
 #include <ostream>
 #include <cmath>
 #include <vector>
-#include "Triangles.h"
+#include "./Geometry/Triangles.h"
 
 namespace geom{
 

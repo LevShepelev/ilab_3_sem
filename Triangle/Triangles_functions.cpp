@@ -40,7 +40,6 @@ bool Triangle_crossing(const Triangle& tr1, const Triangle& tr2)
         Line crossing_line(tr1.plane(), tr2.plane());
         std::vector<Vector> segment_1 = Triangle_and_line_crossing(crossing_line, tr1),
                             segment_2 = Triangle_and_line_crossing(crossing_line, tr2);
-        std::cout << crossing_line;
         if  (segment_1.size() == 2 && segment_2.size() == 2 &&
             (segment_1[0].Is_point_between_other_points(segment_2[0], segment_2[1]) || segment_1[1].Is_point_between_other_points(segment_2[0], segment_2[1]) ||
              segment_2[0].Is_point_between_other_points(segment_1[0], segment_1[1]) || segment_2[1].Is_point_between_other_points(segment_1[0], segment_1[1])))
@@ -181,7 +180,7 @@ bool Invalid_case_line_point(const Triangle& tr1, const Triangle tr2)
 
 bool Invalid_case_Trinagle_line(const Triangle& tr1, const Triangle tr2)
     {
-    printf("Invalid: Triangle and line\n");
+    //printf("Invalid: Triangle and line\n");
     for (int i = 1; i <= 3; i++)   //triangle and line
         if (!tr1.Is_valid() && tr2.Is_valid() && tr1.line(i).Is_valid())
             return Triangle_and_line_interesection_in_3D(tr1.line(i), tr2);
@@ -207,7 +206,7 @@ bool Invalid_case_two_line(const Triangle& tr1, const Triangle& tr2)
 /// \brief The function finds out if there's intersecton of line and Triangle in 3D
 bool Triangle_and_line_interesection_in_3D(const Line& line, const Triangle& tr)
     {
-    printf("Tr and line inter\n");
+    //printf("Tr and line inter\n");
     if (!line.Is_valid())
         {
         printf("invalid line\n");

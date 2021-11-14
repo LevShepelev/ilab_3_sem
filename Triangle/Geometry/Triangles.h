@@ -19,11 +19,10 @@ class Triangle
         Vector p_[3];
         Plane plane_;
         Line line_[3];
-        unsigned int number_ = 0;
-
+        
     public:
         Triangle(){}
-        inline Triangle(Vector p1, Vector p2, Vector p3, int n);
+        inline Triangle(Vector p1, Vector p2, Vector p3);
         bool Is_valid() const {return plane_.Is_valid();}
 
     public: //getters
@@ -32,10 +31,9 @@ class Triangle
         Line line(int i) const   {if (1 <= i && i <= 3) return line_[i - 1]; else return Line();}
         double min_coord(int i) const {if (0 <= i && i <= 2) return p_[min_coord_[i]][i]; else return poison;}
         double max_coord(int i) const {if (0 <= i && i <= 2) return p_[max_coord_[i]][i]; else return poison;}
-        unsigned int number() const {return number_;}
     };
 
-inline Triangle::Triangle(Vector p1, Vector p2, Vector p3, int n) : p_({p1, p2, p3}), plane_(p1, p2, p3), number_(n)
+inline Triangle::Triangle(Vector p1, Vector p2, Vector p3) : p_({p1, p2, p3}), plane_(p1, p2, p3)
     {
     for (int i = 0; i < 3; i++)// i is coordinate 0 = x, 1 = y, 2 = z;
         {
