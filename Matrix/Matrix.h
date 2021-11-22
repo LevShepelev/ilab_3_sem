@@ -8,7 +8,7 @@ bool Is_zero(double value);
 #define Full_pivoting
 
 template <typename T>
-class Matrix
+class Matrix final
     {
     private:
         T** array_;
