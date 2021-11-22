@@ -7,7 +7,6 @@ bool Is_zero(double value);
 #define DBL_EPSILON 1e-20
 #define Full_pivoting
 
-
 template <typename T>
 class Matrix
     {
@@ -32,6 +31,7 @@ class Matrix
         T LU_determinant();
         int Size() const { return size_; };
         int Gauss_algo();
+        T Int_Deter();
         void Decomposition(Matrix* L, Matrix* U);
         void Clear_matrix();
         int Pivoting(int j);
@@ -76,7 +76,6 @@ Matrix<T>::Matrix(Matrix &&rhs)
     {
     if (this != &rhs)
         {
-        
         size_  = rhs.size_;
         array_ = rhs.array_;
         rhs.array_ = nullptr;
@@ -90,13 +89,9 @@ Matrix<T>& Matrix<T>::operator=(const Matrix &rhs)
     {
     for (int i = 0; i != size_; ++i)
         delete[] array_[i];
-    size_ = rhs.size_;
-    array_ = new T*[size_];
-    for (int i = 0; i < size_; ++i)
-        array_[i] = new T[size_];
-    for (int i = 0; i != size_; ++i)
-        for (int j = 0; j != size_; ++j)
-            array_[i][j] = rhs.array_[i][j];
+    Matrix matr(rhs);
+    std::swap(matr.array_, array_);
+    std::swap(matr.size_, size_);
     return *this;
     }
 
@@ -123,9 +118,8 @@ Matrix<T>::~Matrix()
     {
     //std::cout << "Destructor wwas called\n";
     for (int i = 0; i != size_; ++i)
-        free(array_[i]);
-    free(array_);
-    size_ = 0;
+        delete [] array_[i];
+    delete [] array_;
     }
 
 
@@ -301,13 +295,40 @@ int Matrix<T>::Gauss_algo()
                 printf("zero_matrix\n");
                 return 0;
                 }
-
+            Print_matrix(std::cout);
             Add_another_raw(i, j, -array_[i][j] / array_[j][j]);
             }
         }
     return number_of_reversing;
     }
 
+template <typename T>
+T Matrix<T>::Int_Deter()
+    {
+    Matrix matr(*this);
+    double multiplier = 1;
+    T deter = 1;
+    for (int j = 0; j != size_; ++j)
+        {
+        for (int i = j + 1; i != size_; ++i)
+            {
+            if (Is_zero(array_[j][j]))
+                {
+                printf("zero_matrix\n");
+                return 0;
+                }
+            T k1 = matr.array_[i][j], k2 = matr.array_[j][j];
+            matr.Mul_raw(i, k2);
+            matr.Mul_raw(j, k1);
+            matr.Add_another_raw(i, j, -1);
+            matr.Div_raw(j, k1);
+            multiplier *= k2;
+            }
+        }
+    for (int i = 0; i < matr.size_; i++)
+        deter *= matr.array_[i][i];
+    return deter / multiplier;
+    }
 
 template <typename T>
 void Matrix<T>::Swap_raw(int first, int second)
