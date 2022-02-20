@@ -116,7 +116,7 @@ Tree<T>::Tree(const Tree& tr)
                 }
             }
         }
-    catch(...) { this -> ~Tree(); }
+    catch(...) { this -> ~Tree();  throw;}
     }
 
 
