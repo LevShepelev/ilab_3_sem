@@ -7,7 +7,7 @@
 #include <fstream>
 
 template <typename T>
-class Tree
+class Tree final
     {
     struct Node_t
         {
