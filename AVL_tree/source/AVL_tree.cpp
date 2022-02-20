@@ -5,12 +5,14 @@ int main()
     Tree<int> tr;
     char symb = 0;
     int elem = 0;
-    std::ifstream in("../Tests/test002");
+    char s[30] = "./Tests/test005";
+    std::ifstream in(s);
     if (!in.is_open())
         {
-        std::cout << "No such file" << std::endl;
+        std::cout << "No such file " << '"' <<s << '"' << std::endl;
         return -1;
         }
+        
     while (true)
         {
         in >> symb;
