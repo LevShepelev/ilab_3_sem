@@ -5,20 +5,13 @@ int main()
     Tree<int> tr;
     char symb = 0;
     int elem = 0;
-    char s[30] = "./Tests/test005";
-    std::ifstream in(s);
-    if (!in.is_open())
-        {
-        std::cout << "No such file " << '"' <<s << '"' << std::endl;
-        return -1;
-        }
         
-    while (true)
+    while (symb != '\n' || symb != std::cin.eof())
         {
-        in >> symb;
-        if (symb == 'q' || std::cin.eof())
+        scanf("%c", &symb);
+        if (symb == '\n')
             break;
-        in >> elem;
+        scanf("%d", &elem);
         if (symb == 'k')
             tr.Insert(elem);
 
