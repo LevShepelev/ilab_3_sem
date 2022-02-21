@@ -32,27 +32,27 @@ class Tree final
 
         void Insert(T key);
         void Erase(T key);
-        void Print_tree_to_graphiz();
-        void Print_tree(Node_t* node);
-        void Graphiz_translation(Node_t* node, FILE* fout);
-        int K_least_element(int k);
-        int Numb_of_elem_less_than(int key);
+        void Print_tree_to_graphiz() const;
+        void Print_tree(Node_t* node) const;
+        void Graphiz_translation(Node_t* node, FILE* fout) const;
+        int K_least_element(int k) const;
+        int Numb_of_elem_less_than(int key) const;
 
     private: 
         Node_t* root_;
 
-        int  Height(Node_t* curr) { return curr ? curr -> height : 0; }
-        int  Under(Node_t* curr)  { return curr ? curr -> under + 1 : 0; }
-        int  Balance_index(Node_t* curr) { return Height(curr -> right) - Height(curr -> left); }
+        int  Height(Node_t* curr) const { return curr ? curr -> height : 0; }
+        int  Under(Node_t* curr)  const { return curr ? curr -> under + 1 : 0; }
+        int  Balance_index(Node_t* curr) const { return Height(curr -> right) - Height(curr -> left); }
         void Update_height(Node_t* curr);
         void Rotate_right(Node_t* curr);
         void Rotate_left(Node_t* curr);
         void Height_update_lift(Node_t* curr);
         void Rebalance(Node_t* curr);
-        int  Count_height(Node_t* curr);
-        Node_t* Search_min(Node_t* curr);
+        int  Count_height(Node_t* curr) const;
+        Node_t* Search_min(Node_t* curr) const;
         void Clear();
-        Node_t* Find_nearest_node(T key);
+        Node_t* Find_nearest_node(T key) const;
     };
 
 
@@ -241,7 +241,7 @@ void Tree<T>::Height_update_lift(Node_t* curr)
 
 
 template <typename T>
-int Tree<T>::Count_height(Node_t* curr)
+int Tree<T>::Count_height(Node_t* curr) const
     {
     if (curr != nullptr)
         return 0;
@@ -356,7 +356,7 @@ void Tree<T>::Erase(T key)
 
 
 template <typename T>
-void Tree<T>::Print_tree_to_graphiz()
+void Tree<T>::Print_tree_to_graphiz() const
     {
     FILE* fout = fopen("graph.txt", "w+");
     fprintf(fout, "digraph G{\n");
@@ -373,7 +373,7 @@ void Tree<T>::Print_tree_to_graphiz()
 
 
 template <typename T>
-void Tree<T>::Graphiz_translation(Node_t* node, FILE* fout)
+void Tree<T>::Graphiz_translation(Node_t* node, FILE* fout) const
             {
             if (node -> left)
                 {
@@ -390,7 +390,7 @@ void Tree<T>::Graphiz_translation(Node_t* node, FILE* fout)
 
 
 template <typename T>
-void Tree<T>::Print_tree(Node_t* node)
+void Tree<T>::Print_tree(Node_t* node) const
             {
             if (node == 0)
                 node = root_;
@@ -413,7 +413,7 @@ void Tree<T>::Print_tree(Node_t* node)
 
 
 template <typename T>
-int Tree<T>::K_least_element(int k)
+int Tree<T>::K_least_element(int k) const
     {
     Node_t* curr = root_;
     if (curr == nullptr)
@@ -447,7 +447,7 @@ int Tree<T>::K_least_element(int k)
 
 
 template <typename T>
-int Tree<T>::Numb_of_elem_less_than(int key)
+int Tree<T>::Numb_of_elem_less_than(int key) const
     {
     Node_t* curr = root_;
     int ret_value = 0;
@@ -476,7 +476,7 @@ int Tree<T>::Numb_of_elem_less_than(int key)
 
 
 template <typename T>
-typename Tree<T>::Node_t* Tree<T>::Search_min(Node_t* curr)
+typename Tree<T>::Node_t* Tree<T>::Search_min(Node_t* curr) const
             {
             while(curr -> left != nullptr)
                 curr = curr -> left;
@@ -515,7 +515,7 @@ void Tree<T>::Clear()
 
 
 template <typename T>
-typename Tree<T>::Node_t* Tree<T>::Find_nearest_node(T key)
+typename Tree<T>::Node_t* Tree<T>::Find_nearest_node(T key) const
     {
     Node_t* curr = root_;
     while (root_)
