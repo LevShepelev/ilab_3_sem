@@ -1,4 +1,4 @@
-#include "Matrix.h"
+#include "../include/Matrix.h"
 
 int main()
     {

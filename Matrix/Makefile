@@ -1,12 +1,12 @@
 
 all: build run
 	
-build: Matrix.h
-	g++ -Wall -c -g -O0 Matrix.cpp
-	g++ Matrix.o -o Matrix
-	g++ -c -g -Wall Test_maker.cpp
-	g++ Test_maker.o -o Test_maker
+build: ./include/Matrix.h
+	g++ -Wall -c -g -O0 ./source/Matrix.cpp
+	g++ ./source/Matrix.o -o ./source/Matrix
+	g++ -c -g -Wall ./source/Test_maker.cpp
+	g++ ./source/Test_maker.o -o ./source/Test_maker
 
 run: build
-	./Matrix < Test.txt
+	./source/Matrix < ./Tests/Test.txt
 	

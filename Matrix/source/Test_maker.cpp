@@ -1,7 +1,7 @@
 #include <fstream>
 #include <iostream>
 #include <ctime>
-#include "Matrix.h"
+#include "../include/Matrix.h"
 
 
 int main()
