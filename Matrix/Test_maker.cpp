@@ -6,7 +6,7 @@
 
 int main()
     {
-    int size = 25;
+    int size = 3;
     double deter = 10;
     std::ofstream fout_1("Test_1.txt");
     Matrix<double> matr(size, deter);

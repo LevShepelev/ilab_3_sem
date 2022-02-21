@@ -4,8 +4,8 @@ int main()
     {
     int N = 0;
     std::cin >> N;
-    Matrix<int> matrix(N);
+    Matrix<double> matrix(N);
     matrix.Read_matrix();
-    int deter =  matrix.Int_Deter();
+    double deter = matrix.Determinant();
     std::cout << deter << std::endl;
     }

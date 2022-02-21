@@ -51,25 +51,42 @@ class Matrix final
 template <typename T>
 Matrix<T>::Matrix(int size)
     {
-    size_ = size;
-    array_ = new T*[size];
-    for (int i = 0; i < size; ++i)
+    int i = 0;
+    try {
+        array_ = new T*[size];
+        for (i = 0; i < size; ++i)
         array_[i] = new T[size];
+    }
+    catch(...) {
+        for (int j = 0; j < i; j++)
+            delete [] array_[j];
+        delete [] array_;
+        throw;    
+    }
+    size_ = size;
     }
 
 
 template <typename T>
 Matrix<T>::Matrix(const Matrix &rhs)
     {
-    size_ = rhs.size_;
-    array_ = new T*[size_];
-    for (int i = 0; i < size_; ++i)
-        array_[i] = new T[size_];
-    for (int i = 0; i != size_; ++i)
-        for (int j = 0; j != size_; ++j)
+    int i = 0;
+    try {
+    array_ = new T*[rhs.size_];
+    for (i = 0; i < rhs.size_; ++i)
+        array_[i] = new T[rhs.size_];
+    for (i = 0; i != rhs.size_; ++i)
+        for (int j = 0; j != rhs.size_; ++j)
             array_[i][j] = rhs.array_[i][j];
     }
-
+    catch(...) {
+        for (int j = 0; j < i; j++)
+            delete [] array_[j];
+        delete [] array_;
+        throw;    
+    }
+    size_ = rhs.size_;
+    }
 
 template <typename T>
 Matrix<T>::Matrix(Matrix &&rhs)
@@ -87,9 +104,9 @@ Matrix<T>::Matrix(Matrix &&rhs)
 template <typename T>
 Matrix<T>& Matrix<T>::operator=(const Matrix &rhs)
     {
+    Matrix matr(rhs);
     for (int i = 0; i != size_; ++i)
         delete[] array_[i];
-    Matrix matr(rhs);
     std::swap(matr.array_, array_);
     std::swap(matr.size_, size_);
     return *this;
@@ -119,7 +136,8 @@ Matrix<T>::~Matrix()
     //std::cout << "Destructor wwas called\n";
     for (int i = 0; i != size_; ++i)
         delete [] array_[i];
-    delete [] array_;
+    if (size_ > 0)
+        delete [] array_;
     }
 
 
@@ -295,7 +313,6 @@ int Matrix<T>::Gauss_algo()
                 printf("zero_matrix\n");
                 return 0;
                 }
-            Print_matrix(std::cout);
             Add_another_raw(i, j, -array_[i][j] / array_[j][j]);
             }
         }
