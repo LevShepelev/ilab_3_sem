@@ -234,6 +234,33 @@ gtest/fast:
 	$(MAKE) -f Test/googletest/CMakeFiles/gtest.dir/build.make Test/googletest/CMakeFiles/gtest.dir/build
 .PHONY : gtest/fast
 
+Google_test/test_tree.o: Google_test/test_tree.cpp.o
+
+.PHONY : Google_test/test_tree.o
+
+# target to build an object file
+Google_test/test_tree.cpp.o:
+	$(MAKE) -f CMakeFiles/test_tree.dir/build.make CMakeFiles/test_tree.dir/Google_test/test_tree.cpp.o
+.PHONY : Google_test/test_tree.cpp.o
+
+Google_test/test_tree.i: Google_test/test_tree.cpp.i
+
+.PHONY : Google_test/test_tree.i
+
+# target to preprocess a source file
+Google_test/test_tree.cpp.i:
+	$(MAKE) -f CMakeFiles/test_tree.dir/build.make CMakeFiles/test_tree.dir/Google_test/test_tree.cpp.i
+.PHONY : Google_test/test_tree.cpp.i
+
+Google_test/test_tree.s: Google_test/test_tree.cpp.s
+
+.PHONY : Google_test/test_tree.s
+
+# target to generate assembly for a file
+Google_test/test_tree.cpp.s:
+	$(MAKE) -f CMakeFiles/test_tree.dir/build.make CMakeFiles/test_tree.dir/Google_test/test_tree.cpp.s
+.PHONY : Google_test/test_tree.cpp.s
+
 source/AVL_tree.o: source/AVL_tree.cpp.o
 
 .PHONY : source/AVL_tree.o
@@ -261,33 +288,6 @@ source/AVL_tree.cpp.s:
 	$(MAKE) -f CMakeFiles/AVL_tree.dir/build.make CMakeFiles/AVL_tree.dir/source/AVL_tree.cpp.s
 .PHONY : source/AVL_tree.cpp.s
 
-test_tree/test_tree.o: test_tree/test_tree.cpp.o
-
-.PHONY : test_tree/test_tree.o
-
-# target to build an object file
-test_tree/test_tree.cpp.o:
-	$(MAKE) -f CMakeFiles/test_tree.dir/build.make CMakeFiles/test_tree.dir/test_tree/test_tree.cpp.o
-.PHONY : test_tree/test_tree.cpp.o
-
-test_tree/test_tree.i: test_tree/test_tree.cpp.i
-
-.PHONY : test_tree/test_tree.i
-
-# target to preprocess a source file
-test_tree/test_tree.cpp.i:
-	$(MAKE) -f CMakeFiles/test_tree.dir/build.make CMakeFiles/test_tree.dir/test_tree/test_tree.cpp.i
-.PHONY : test_tree/test_tree.cpp.i
-
-test_tree/test_tree.s: test_tree/test_tree.cpp.s
-
-.PHONY : test_tree/test_tree.s
-
-# target to generate assembly for a file
-test_tree/test_tree.cpp.s:
-	$(MAKE) -f CMakeFiles/test_tree.dir/build.make CMakeFiles/test_tree.dir/test_tree/test_tree.cpp.s
-.PHONY : test_tree/test_tree.cpp.s
-
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -306,12 +306,12 @@ help:
 	@echo "... gmock"
 	@echo "... gtest_main"
 	@echo "... gtest"
+	@echo "... Google_test/test_tree.o"
+	@echo "... Google_test/test_tree.i"
+	@echo "... Google_test/test_tree.s"
 	@echo "... source/AVL_tree.o"
 	@echo "... source/AVL_tree.i"
 	@echo "... source/AVL_tree.s"
-	@echo "... test_tree/test_tree.o"
-	@echo "... test_tree/test_tree.i"
-	@echo "... test_tree/test_tree.s"
 .PHONY : help
 
 

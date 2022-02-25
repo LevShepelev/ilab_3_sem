@@ -8,7 +8,7 @@
             "name": "(gdb) Launch",
             "type": "cppdbg",
             "request": "launch",
-            "program": "${workspaceFolder}/build/test_tree",
+            "program": "${workspaceFolder}/build/AVL_tree",
             "args": [],
             "stopAtEntry": false,
             "cwd": "${fileDirname}",

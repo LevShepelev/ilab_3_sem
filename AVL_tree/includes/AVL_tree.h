@@ -338,7 +338,10 @@ void Tree<T>::Erase(T key)
         delete curr;
         }
     else 
+        {
         delete curr;
+        root_ = nullptr;
+        }
     }
 
 

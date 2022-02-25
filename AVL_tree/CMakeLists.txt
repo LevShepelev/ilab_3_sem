@@ -10,7 +10,7 @@ add_subdirectory(
 )
 add_executable(
     test_tree
-    test_tree/test_tree.cpp
+    Google_test/test_tree.cpp
 )
 
 add_executable(

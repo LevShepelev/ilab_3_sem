@@ -6,6 +6,14 @@
 
 #IncludeRegexTransform: 
 
+/home/lev/ilab_3_sem/AVL_tree/Google_test/test_tree.cpp
+gtest/gtest.h
+-
+iostream
+-
+../includes/AVL_tree.h
+/home/lev/ilab_3_sem/AVL_tree/includes/AVL_tree.h
+
 /home/lev/ilab_3_sem/AVL_tree/includes/AVL_tree.h
 algorithm
 -
@@ -19,14 +27,6 @@ iostream
 -
 fstream
 -
-
-/home/lev/ilab_3_sem/AVL_tree/test_tree/test_tree.cpp
-gtest/gtest.h
--
-iostream
--
-../includes/AVL_tree.h
-/home/lev/ilab_3_sem/AVL_tree/includes/AVL_tree.h
 
 /home/lev/ilab_3_sem/Test/googletest/include/gtest/gtest-assertion-result.h
 memory
