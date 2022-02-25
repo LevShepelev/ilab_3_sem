@@ -1,0 +1,26 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/lev/ilab_3_sem/AVL_tree/includes/AVL_tree.h
+algorithm
+-
+iostream
+-
+unistd.h
+-
+sys/types.h
+-
+iostream
+-
+fstream
+-
+
+/home/lev/ilab_3_sem/AVL_tree/source/AVL_tree.cpp
+../includes/AVL_tree.h
+/home/lev/ilab_3_sem/AVL_tree/includes/AVL_tree.h
+

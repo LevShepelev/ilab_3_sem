@@ -11,19 +11,19 @@ class Tree final
     {
     struct Node_t
         {
-        Node_t(T key, Node_t* prev) : key(key), left(nullptr), right(nullptr), prev(prev), height(1), under(0) {}
+        Node_t(T key, Node_t* prev) : key(key), prev(prev) {}
+        Node_t(Node_t* node) : key(node -> key), height(node -> height), under(node -> under) {}
         T key;
-        Node_t* left;
-        Node_t* right;
-        Node_t* prev;
-        int height;
-        int under; // under shows us, how many nodes under this node
-        Node_t(Node_t* node) : key(node -> key), left(nullptr), right(nullptr), prev(nullptr), height(node -> height), under(node -> under) {}
+        Node_t* left = nullptr;
+        Node_t* right = nullptr;
+        Node_t* prev = nullptr;
+        int height = 1;
+        int under = 0; // under shows us, how many nodes under this node
         };
     
 
     public:
-        Tree() : root_(nullptr) {}
+        Tree() {}
         Tree(const Tree& tr);
         Tree(Tree&& tr);
         Tree& operator= (const Tree& tr);
@@ -37,22 +37,24 @@ class Tree final
         void Graphiz_translation(Node_t* node, FILE* fout) const;
         int K_least_element(int k) const;
         int Numb_of_elem_less_than(int key) const;
+        int Get_size() const { return Under(root_); } 
 
     private: 
-        Node_t* root_;
-
+        Node_t* root_ = nullptr;
         int  Height(Node_t* curr) const { return curr ? curr -> height : 0; }
         int  Under(Node_t* curr)  const { return curr ? curr -> under + 1 : 0; }
         int  Balance_index(Node_t* curr) const { return Height(curr -> right) - Height(curr -> left); }
+        int  Count_height(Node_t* curr) const;
         void Update_height(Node_t* curr);
         void Rotate_right(Node_t* curr);
         void Rotate_left(Node_t* curr);
         void Height_update_lift(Node_t* curr);
         void Rebalance(Node_t* curr);
-        int  Count_height(Node_t* curr) const;
-        Node_t* Search_min(Node_t* curr) const;
         void Clear();
+        Node_t* Search_min(Node_t* curr) const;
         Node_t* Find_nearest_node(T key) const;
+        Node_t* Find_elem(T key) const;
+
     };
 
 
@@ -135,11 +137,8 @@ Tree<T>& Tree<T>::operator= (const Tree& tr)
     {
     if (this == &tr)
         return *this;
-        
-    Tree* tmp = new Tree();
-    tmp -> root_ = root_;
-    delete tmp;
-    tmp = new Tree(tr);
+    this -> Clear();
+    Tree<T>* tmp = new Tree(tr);
     root_ = tmp -> root_;
     return *this;
     } 
@@ -293,65 +292,53 @@ void Tree<T>::Erase(T key)
         std::cout << "Tree is empty\n" << std::endl;
         return;
         }
-    Node_t* curr = root_;
-    while (curr)
+    Node_t* curr = Find_elem(key);       
+    Node_t* min_node;
+    if (curr == nullptr)
+        return;
+    else if (curr -> right != nullptr)
         {
-        if (key > curr -> key)
-            curr = curr -> right;
-        else if (key < curr -> key)
-            curr = curr -> left;
-        else  
+        min_node = Search_min(curr -> right);
+        std::swap(curr -> key, min_node -> key);
+        if (min_node == curr -> right)
             {
-            Node_t* min_node;
-            if (curr -> right != nullptr)
-                {
-                min_node = Search_min(curr -> right);
-                
-                std::swap(curr -> key, min_node -> key);
-                if (min_node == curr -> right)
-                    {
-                    if (curr -> right -> right != nullptr)
-                        curr -> right -> right -> prev = curr;
-                    curr -> right = curr -> right -> right;
-                    }
-                else 
-                    {
-                    min_node -> prev -> left = min_node -> right;
-                    if (min_node -> right != nullptr)
-                        min_node -> right -> prev = min_node -> prev;
-                    else 
-                        min_node -> prev -> left = nullptr;
-                    }
-                Rebalance(min_node);
-                delete min_node;//right 
-                }
-            else if (curr -> left != nullptr) 
-                {
-                curr -> key = curr -> left -> key;
-                if (curr -> left -> left != nullptr)
-                    curr -> left -> left -> prev = curr;
-                if (curr -> left -> right != nullptr)
-                    curr -> left -> right -> prev = curr;
-                curr -> right = curr -> left -> right;
-                curr -> left = curr -> left -> left;
-                Rebalance(curr);
-                delete curr -> left;
-                }
-            else if (curr -> prev != nullptr)
-                {
-                if (curr -> prev -> left == curr)
-                    curr -> prev -> left = nullptr;
-                else curr -> prev -> right = nullptr;
-                Rebalance(curr);
-                delete curr;
-                }
-            else 
-                delete curr;
-                
-            return;
+            if (curr -> right -> right != nullptr)
+                curr -> right -> right -> prev = curr;
+            curr -> right = curr -> right -> right;
             }
+        else 
+            {
+            min_node -> prev -> left = min_node -> right;
+            if (min_node -> right != nullptr)
+                min_node -> right -> prev = min_node -> prev;
+            else 
+                min_node -> prev -> left = nullptr;
+            }
+        Rebalance(min_node);
+        delete min_node;//right 
         }
-
+    else if (curr -> left != nullptr) 
+        {
+        curr -> key = curr -> left -> key;
+        if (curr -> left -> left != nullptr)
+            curr -> left -> left -> prev = curr;
+        if (curr -> left -> right != nullptr)
+            curr -> left -> right -> prev = curr;
+        curr -> right = curr -> left -> right;
+        curr -> left = curr -> left -> left;
+        Rebalance(curr);
+        delete curr -> left;
+        }
+    else if (curr -> prev != nullptr)
+        {
+        if (curr -> prev -> left == curr)
+            curr -> prev -> left = nullptr;
+        else curr -> prev -> right = nullptr;
+        Rebalance(curr);
+        delete curr;
+        }
+    else 
+        delete curr;
     }
 
 
@@ -536,3 +523,20 @@ typename Tree<T>::Node_t* Tree<T>::Find_nearest_node(T key) const
         }
     return root_;
     }
+
+
+template <typename T>
+typename Tree<T>::Node_t* Tree<T>::Find_elem(T key) const
+    {
+    Node_t* curr = root_;
+    while (curr)
+        {
+        if (key > curr -> key)
+            curr = curr -> right;
+        else if (key < curr -> key)
+            curr = curr -> left;
+        else return curr;
+        }
+    return curr;
+    }
+    
