@@ -65,8 +65,7 @@ TEST(AVL_tree, Move_assigment) {
     for (int i = 0; i < count; ++i)
         tree -> Insert(i);
     Tree<int> tree_copy = Tree<int>(*tree);
-    int size = tree_copy.Get_size();
-    ASSERT_EQ(size, count);
+    ASSERT_EQ(tree_copy.Get_size(), count);
     delete tree;
     ASSERT_EQ(tree_copy.Get_size(), count);
 }
