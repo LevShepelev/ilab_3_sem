@@ -41,7 +41,7 @@ TEST(AVL_tree, Move_consructor) {
     for (int i = 0; i < count; ++i)
         tree -> Insert(i);
     
-    Tree<int>* tree_copy = new Tree<int>(*tree);
+    Tree<int>* tree_copy = new Tree<int>(Tree<int>(*tree));
     ASSERT_EQ(tree_copy -> Get_size(), count);
     delete tree;
     ASSERT_EQ(tree_copy -> Get_size(), count);

@@ -6,13 +6,10 @@ int main()
     char symb = 0;
     int elem = 0;
 
-
+    std::cin.get(symb);
     while (symb != '\n' || symb != std::cin.eof())
         {
-        scanf("%c", &symb);
-        if (symb == '\n')
-            break;
-        scanf("%d", &elem);
+        std::cin >> elem;
         if (symb == 'k')
             tr.Insert(elem);
 
@@ -21,6 +18,14 @@ int main()
         
         else if (symb == 'n')
             std::cout << tr.Numb_of_elem_less_than(elem) << " ";
+
+        std::cin.get(symb);
+        if (symb == '\n' || !std::cin)
+            break;
+
+        std::cin.get(symb);
+        if (symb == '\n' || !std::cin)
+            break;
         }
     std::cout << std::endl;
     #ifdef GRAPH
