@@ -26,7 +26,7 @@ class Matrix final
         Matrix& operator=(const Matrix &rhs);
         Matrix& operator=(Matrix &&rhs);
         ~Matrix();
-        void Read_matrix();
+        void Read_matrix(std::istream& in);
         void Print_matrix(std::ostream& out) const;
         T Determinant();
         T LU_determinant();
@@ -170,11 +170,11 @@ void Matrix<T>::Print_matrix(std::ostream& out) const
 
 
 template <typename T>
-void Matrix<T>::Read_matrix()
+void Matrix<T>::Read_matrix(std::istream& in)
     {
     for (int i = 0; i != size_; ++i)
         for (int j = 0; j != size_; ++j)
-            std::cin >> array_[i][j];
+            in >> array_[i][j];
     }
 
 
