@@ -4,8 +4,9 @@
 #include <cmath>
 
 bool Is_zero(double value);
-#define DBL_EPSILON 1e-20
+#define Epsilon 1e-10
 #define Full_pivoting
+
 
 template <typename T>
 class Matrix final
@@ -47,6 +48,19 @@ class Matrix final
         void Swap_colomn(int first, int second);
 
     };
+
+template <typename T>
+bool operator ==(const Matrix<T>& lhs, const Matrix<T>& rhs)
+    {
+    if (lhs.Size() != rhs.Size())
+        return false;
+    int size = lhs.Size();
+    for (int i = 0; i != size; ++i)
+        for (int j = 0; j != size; ++j)
+            if (!Is_zero(lhs[i][j] - rhs[i][j]))
+                return false;
+    return true;
+    }
 
 template <typename T>
 Matrix<T>::Matrix(int size)
@@ -105,8 +119,6 @@ template <typename T>
 Matrix<T>& Matrix<T>::operator=(const Matrix &rhs)
     {
     Matrix matr(rhs);
-    for (int i = 0; i != size_; ++i)
-        delete[] array_[i];
     std::swap(matr.array_, array_);
     std::swap(matr.size_, size_);
     return *this;
@@ -191,6 +203,7 @@ Matrix<T>::Matrix(int size, T deter)
     for (int i = 0; i != size - 1; i++)
         Add_another_colomn(i, size_ - 1, rand() % 20);
     }
+
 
 template <typename T>
 Matrix<T> Matrix<T>::unitary(int size)
@@ -278,7 +291,7 @@ int Matrix<T>::Pivoting(int j)
     for (int n = j; n < size_; ++n)
         for (int k = j; k < size_; ++k)
             {
-            if (fabs(array_[n][k]) - fabs(array_[n_max][k_max]) > DBL_EPSILON)
+            if (fabs(array_[n][k]) - fabs(array_[n_max][k_max]) > Epsilon)
                 {
                 n_max = n;
                 k_max = k;
@@ -322,6 +335,7 @@ int Matrix<T>::Gauss_algo()
 template <typename T>
 T Matrix<T>::Int_Deter()
     {
+    Print_matrix(std::cout);
     Matrix matr(*this);
     double multiplier = 1;
     T deter = 1;
@@ -335,15 +349,19 @@ T Matrix<T>::Int_Deter()
                 return 0;
                 }
             T k1 = matr.array_[i][j], k2 = matr.array_[j][j];
-            matr.Mul_raw(i, k2);
-            matr.Mul_raw(j, k1);
-            matr.Add_another_raw(i, j, -1);
-            matr.Div_raw(j, k1);
-            multiplier *= k2;
+            if (k1 != 0) 
+                {
+                matr.Mul_raw(i, k2);
+                matr.Mul_raw(j, k1);
+                matr.Add_another_raw(i, j, -1);
+                matr.Div_raw(j, k1);
+                multiplier *= k2;
+                }
             }
         }
     for (int i = 0; i < matr.size_; i++)
         deter *= matr.array_[i][i];
+    std::cout << "deter = " << deter << " multiplier = " << multiplier << std::endl;
     return deter / multiplier;
     }
 
@@ -380,8 +398,8 @@ T Matrix<T>::Determinant()
     int Is_minus = matr.Gauss_algo() % 2;
     for (int i = 0; i != size_; ++i)
         {
-        //std::cout << "deter = " << deter << std::endl;
         deter *= matr.array_[i][i];
+        //std::cout << "deter = " << deter << std::endl;
         }
 
     if (Is_minus)
@@ -393,10 +411,14 @@ T Matrix<T>::Determinant()
 
 bool Is_zero(double value)
     {
-    if (-DBL_EPSILON < value && value < DBL_EPSILON)
+    if (-Epsilon < value && value < Epsilon)
         return 1;
-    else return 0;
-    }
+    else 
+        {
+        //std::cout << "value = " << value << '\n';
+        return 0;
+        }
+    } 
 
 
 template <typename T>
@@ -451,4 +473,3 @@ T Matrix<T>::LU_determinant()
         deter *= L.array_[i][i] * U.array_[i][i];
     return deter;
     }
-    
