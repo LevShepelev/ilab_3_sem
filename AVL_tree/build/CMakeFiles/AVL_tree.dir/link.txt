@@ -1,1 +1,0 @@
-/usr/bin/c++   -Wall -Wextra -Werror -g  -rdynamic CMakeFiles/AVL_tree.dir/source/AVL_tree.cpp.o  -o AVL_tree 
