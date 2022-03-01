@@ -25,9 +25,9 @@ class Tree final
     public:
         Tree() {}
         Tree(const Tree& tr);
-        Tree(Tree&& tr);
+        Tree(Tree&& tr) noexcept;
         Tree& operator= (const Tree& tr);
-        Tree& operator= (Tree&& tr);
+        Tree& operator= (Tree&& tr) noexcept;
         ~Tree();
 
         void Insert(T key);
@@ -35,25 +35,25 @@ class Tree final
         void Print_tree_to_graphiz() const;
         void Print_tree(Node_t* node) const;
         void Graphiz_translation(Node_t* node, FILE* fout) const;
-        int K_least_element(int k) const;
-        int Numb_of_elem_less_than(int key) const;
-        int Get_size() const { return Under(root_); } 
+        int K_least_element(int k) const noexcept;
+        int Numb_of_elem_less_than(int key) const noexcept;
+        int Get_size() const noexcept { return Under(root_); } 
 
     private: 
         Node_t* root_ = nullptr;
-        int  Height(Node_t* curr) const { return curr ? curr -> height : 0; }
-        int  Under(Node_t* curr)  const { return curr ? curr -> under + 1 : 0; }
-        int  Balance_index(Node_t* curr) const { return Height(curr -> right) - Height(curr -> left); }
-        int  Count_height(Node_t* curr) const;
-        void Update_height(Node_t* curr);
-        void Rotate_right(Node_t* curr);
-        void Rotate_left(Node_t* curr);
-        void Height_update_lift(Node_t* curr);
-        void Rebalance(Node_t* curr);
-        void Clear();
-        Node_t* Search_min(Node_t* curr) const;
-        Node_t* Find_nearest_node(T key) const;
-        Node_t* Find_elem(T key) const;
+        int  Height(Node_t* curr) const noexcept { return curr ? curr -> height : 0; }
+        int  Under(Node_t* curr)  const noexcept { return curr ? curr -> under + 1 : 0; }
+        int  Balance_index(Node_t* curr) const noexcept { return Height(curr -> right) - Height(curr -> left); }
+        int  Count_height(Node_t* curr) const noexcept;
+        void Update_height(Node_t* curr) noexcept;
+        void Rotate_right(Node_t* curr) noexcept;
+        void Rotate_left(Node_t* curr) noexcept; 
+        void Height_update_lift(Node_t* curr) noexcept;
+        void Rebalance(Node_t* curr) noexcept;
+        void Clear() noexcept;
+        Node_t* Search_min(Node_t* curr) const noexcept;
+        Node_t* Find_nearest_node(T key) const noexcept;
+        Node_t* Find_elem(T key) const noexcept; 
 
     };
 
@@ -126,7 +126,7 @@ Tree<T>::Tree(const Tree& tr)
 
 // Move constructor
 template <typename T>
-Tree<T>::Tree(Tree&& tr) 
+Tree<T>::Tree(Tree&& tr) noexcept
     {
     std::swap(tr.root_, root_);
     }
@@ -137,15 +137,14 @@ Tree<T>& Tree<T>::operator= (const Tree& tr)
     {
     if (this == &tr)
         return *this;
-    this -> Clear();
-    Tree<T>* tmp = new Tree(tr);
-    root_ = tmp -> root_;
+    Tree<T> tmp(tr);
+    std::swap(tmp.root_, root_);
     return *this;
     } 
 
 
 template <typename T>
-Tree<T>& Tree<T>::operator= (Tree&& tr)
+Tree<T>& Tree<T>::operator= (Tree&& tr) noexcept
     {
     if (this == &tr)
         return *this;
@@ -155,7 +154,7 @@ Tree<T>& Tree<T>::operator= (Tree&& tr)
 
 
 template <typename T>
-void Tree<T>::Update_height(Node_t* curr)
+void Tree<T>::Update_height(Node_t* curr) noexcept
     {
     int h_left =  Height(curr -> left);
     int h_right = Height(curr -> right);
@@ -165,7 +164,7 @@ void Tree<T>::Update_height(Node_t* curr)
 
 
 template <typename T>
-void Tree<T>::Rotate_right(Node_t* curr) // правый поворот вокруг curr
+void Tree<T>::Rotate_right(Node_t* curr) noexcept // правый поворот вокруг curr
     {
     Node_t* tmp = curr -> left;
     tmp -> prev = curr -> prev;
@@ -185,7 +184,7 @@ void Tree<T>::Rotate_right(Node_t* curr) // правый поворот вокр
 
 
 template <typename T>
-void Tree<T>::Rotate_left(Node_t* curr) // левый поворот вокруг curr
+void Tree<T>::Rotate_left(Node_t* curr) noexcept // левый поворот вокруг curr
     {
     Node_t* tmp = curr -> right;
     tmp -> prev = curr -> prev;
@@ -205,7 +204,7 @@ void Tree<T>::Rotate_left(Node_t* curr) // левый поворот вокру�
 
 
 template <typename T>
-void Tree<T>::Rebalance(Node_t* curr)
+void Tree<T>::Rebalance(Node_t* curr) noexcept
     {
     while (curr != nullptr)
         {
@@ -228,7 +227,7 @@ void Tree<T>::Rebalance(Node_t* curr)
 
 
 template <typename T>
-void Tree<T>::Height_update_lift(Node_t* curr)
+void Tree<T>::Height_update_lift(Node_t* curr) noexcept
     {
     Update_height(curr);
     while (curr -> prev != nullptr)
@@ -240,7 +239,7 @@ void Tree<T>::Height_update_lift(Node_t* curr)
 
 
 template <typename T>
-int Tree<T>::Count_height(Node_t* curr) const
+int Tree<T>::Count_height(Node_t* curr) const noexcept
     {
     if (curr != nullptr)
         return 0;
@@ -363,7 +362,7 @@ void Tree<T>::Print_tree_to_graphiz() const
 
 
 template <typename T>
-void Tree<T>::Graphiz_translation(Node_t* node, FILE* fout) const
+void Tree<T>::Graphiz_translation(Node_t* node, FILE* fout) const 
             {
             if (node -> left)
                 {
@@ -403,7 +402,7 @@ void Tree<T>::Print_tree(Node_t* node) const
 
 
 template <typename T>
-int Tree<T>::K_least_element(int k) const
+int Tree<T>::K_least_element(int k) const noexcept
     {
     Node_t* curr = root_;
     if (curr == nullptr)
@@ -437,7 +436,7 @@ int Tree<T>::K_least_element(int k) const
 
 
 template <typename T>
-int Tree<T>::Numb_of_elem_less_than(int key) const
+int Tree<T>::Numb_of_elem_less_than(int key) const noexcept
     {
     Node_t* curr = root_;
     int ret_value = 0;
@@ -466,7 +465,7 @@ int Tree<T>::Numb_of_elem_less_than(int key) const
 
 
 template <typename T>
-typename Tree<T>::Node_t* Tree<T>::Search_min(Node_t* curr) const
+typename Tree<T>::Node_t* Tree<T>::Search_min(Node_t* curr) const noexcept
             {
             while(curr -> left != nullptr)
                 curr = curr -> left;
@@ -475,7 +474,7 @@ typename Tree<T>::Node_t* Tree<T>::Search_min(Node_t* curr) const
 
 
 template <typename T>
-void Tree<T>::Clear()
+void Tree<T>::Clear() noexcept
     {
     while (root_ != nullptr)
         {
@@ -505,7 +504,7 @@ void Tree<T>::Clear()
 
 
 template <typename T>
-typename Tree<T>::Node_t* Tree<T>::Find_nearest_node(T key) const
+typename Tree<T>::Node_t* Tree<T>::Find_nearest_node(T key) const noexcept
     {
     Node_t* curr = root_;
     while (root_)
@@ -529,7 +528,7 @@ typename Tree<T>::Node_t* Tree<T>::Find_nearest_node(T key) const
 
 
 template <typename T>
-typename Tree<T>::Node_t* Tree<T>::Find_elem(T key) const
+typename Tree<T>::Node_t* Tree<T>::Find_elem(T key) const noexcept
     {
     Node_t* curr = root_;
     while (curr)
