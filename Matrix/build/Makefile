@@ -205,7 +205,7 @@ gmock_main: cmake_check_build_system
 
 # fast build rule for target.
 gmock_main/fast:
-	$(MAKE) -f Test/googlemock/CMakeFiles/gmock_main.dir/build.make Test/googlemock/CMakeFiles/gmock_main.dir/build
+	$(MAKE) -f Google_test_rep/googlemock/CMakeFiles/gmock_main.dir/build.make Google_test_rep/googlemock/CMakeFiles/gmock_main.dir/build
 .PHONY : gmock_main/fast
 
 #=============================================================================
@@ -218,7 +218,7 @@ gmock: cmake_check_build_system
 
 # fast build rule for target.
 gmock/fast:
-	$(MAKE) -f Test/googlemock/CMakeFiles/gmock.dir/build.make Test/googlemock/CMakeFiles/gmock.dir/build
+	$(MAKE) -f Google_test_rep/googlemock/CMakeFiles/gmock.dir/build.make Google_test_rep/googlemock/CMakeFiles/gmock.dir/build
 .PHONY : gmock/fast
 
 #=============================================================================
@@ -231,7 +231,7 @@ gtest_main: cmake_check_build_system
 
 # fast build rule for target.
 gtest_main/fast:
-	$(MAKE) -f Test/googletest/CMakeFiles/gtest_main.dir/build.make Test/googletest/CMakeFiles/gtest_main.dir/build
+	$(MAKE) -f Google_test_rep/googletest/CMakeFiles/gtest_main.dir/build.make Google_test_rep/googletest/CMakeFiles/gtest_main.dir/build
 .PHONY : gtest_main/fast
 
 #=============================================================================
@@ -244,35 +244,8 @@ gtest: cmake_check_build_system
 
 # fast build rule for target.
 gtest/fast:
-	$(MAKE) -f Test/googletest/CMakeFiles/gtest.dir/build.make Test/googletest/CMakeFiles/gtest.dir/build
+	$(MAKE) -f Google_test_rep/googletest/CMakeFiles/gtest.dir/build.make Google_test_rep/googletest/CMakeFiles/gtest.dir/build
 .PHONY : gtest/fast
-
-Google_test/test_matrix.o: Google_test/test_matrix.cpp.o
-
-.PHONY : Google_test/test_matrix.o
-
-# target to build an object file
-Google_test/test_matrix.cpp.o:
-	$(MAKE) -f CMakeFiles/test_matrix.dir/build.make CMakeFiles/test_matrix.dir/Google_test/test_matrix.cpp.o
-.PHONY : Google_test/test_matrix.cpp.o
-
-Google_test/test_matrix.i: Google_test/test_matrix.cpp.i
-
-.PHONY : Google_test/test_matrix.i
-
-# target to preprocess a source file
-Google_test/test_matrix.cpp.i:
-	$(MAKE) -f CMakeFiles/test_matrix.dir/build.make CMakeFiles/test_matrix.dir/Google_test/test_matrix.cpp.i
-.PHONY : Google_test/test_matrix.cpp.i
-
-Google_test/test_matrix.s: Google_test/test_matrix.cpp.s
-
-.PHONY : Google_test/test_matrix.s
-
-# target to generate assembly for a file
-Google_test/test_matrix.cpp.s:
-	$(MAKE) -f CMakeFiles/test_matrix.dir/build.make CMakeFiles/test_matrix.dir/Google_test/test_matrix.cpp.s
-.PHONY : Google_test/test_matrix.cpp.s
 
 Tests/Test_maker.o: Tests/Test_maker.cpp.o
 
@@ -300,6 +273,33 @@ Tests/Test_maker.s: Tests/Test_maker.cpp.s
 Tests/Test_maker.cpp.s:
 	$(MAKE) -f CMakeFiles/Test_maker.dir/build.make CMakeFiles/Test_maker.dir/Tests/Test_maker.cpp.s
 .PHONY : Tests/Test_maker.cpp.s
+
+Unit_test/test_matrix.o: Unit_test/test_matrix.cpp.o
+
+.PHONY : Unit_test/test_matrix.o
+
+# target to build an object file
+Unit_test/test_matrix.cpp.o:
+	$(MAKE) -f CMakeFiles/test_matrix.dir/build.make CMakeFiles/test_matrix.dir/Unit_test/test_matrix.cpp.o
+.PHONY : Unit_test/test_matrix.cpp.o
+
+Unit_test/test_matrix.i: Unit_test/test_matrix.cpp.i
+
+.PHONY : Unit_test/test_matrix.i
+
+# target to preprocess a source file
+Unit_test/test_matrix.cpp.i:
+	$(MAKE) -f CMakeFiles/test_matrix.dir/build.make CMakeFiles/test_matrix.dir/Unit_test/test_matrix.cpp.i
+.PHONY : Unit_test/test_matrix.cpp.i
+
+Unit_test/test_matrix.s: Unit_test/test_matrix.cpp.s
+
+.PHONY : Unit_test/test_matrix.s
+
+# target to generate assembly for a file
+Unit_test/test_matrix.cpp.s:
+	$(MAKE) -f CMakeFiles/test_matrix.dir/build.make CMakeFiles/test_matrix.dir/Unit_test/test_matrix.cpp.s
+.PHONY : Unit_test/test_matrix.cpp.s
 
 source/Matrix.o: source/Matrix.cpp.o
 
@@ -347,12 +347,12 @@ help:
 	@echo "... gmock"
 	@echo "... gtest_main"
 	@echo "... gtest"
-	@echo "... Google_test/test_matrix.o"
-	@echo "... Google_test/test_matrix.i"
-	@echo "... Google_test/test_matrix.s"
 	@echo "... Tests/Test_maker.o"
 	@echo "... Tests/Test_maker.i"
 	@echo "... Tests/Test_maker.s"
+	@echo "... Unit_test/test_matrix.o"
+	@echo "... Unit_test/test_matrix.i"
+	@echo "... Unit_test/test_matrix.s"
 	@echo "... source/Matrix.o"
 	@echo "... source/Matrix.i"
 	@echo "... source/Matrix.s"

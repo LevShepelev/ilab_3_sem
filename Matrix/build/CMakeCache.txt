@@ -289,13 +289,13 @@ Matrix_SOURCE_DIR:STATIC=/home/lev/ilab_3_sem/Matrix
 _Python_EXECUTABLE:FILEPATH=/usr/bin/python3.8
 
 //Value Computed by CMake
-gmock_BINARY_DIR:STATIC=/home/lev/ilab_3_sem/Matrix/build/Test/googlemock
+gmock_BINARY_DIR:STATIC=/home/lev/ilab_3_sem/Matrix/build/Google_test_rep/googlemock
 
 //Dependencies for the target
 gmock_LIB_DEPENDS:STATIC=general;gtest;
 
 //Value Computed by CMake
-gmock_SOURCE_DIR:STATIC=/home/lev/ilab_3_sem/Test/googlemock
+gmock_SOURCE_DIR:STATIC=/home/lev/ilab_3_sem/Matrix/Google_test_rep/googlemock
 
 //Build all of Google Mock's own tests.
 gmock_build_tests:BOOL=OFF
@@ -304,16 +304,16 @@ gmock_build_tests:BOOL=OFF
 gmock_main_LIB_DEPENDS:STATIC=general;gmock;
 
 //Value Computed by CMake
-googletest-distribution_BINARY_DIR:STATIC=/home/lev/ilab_3_sem/Matrix/build/Test
+googletest-distribution_BINARY_DIR:STATIC=/home/lev/ilab_3_sem/Matrix/build/Google_test_rep
 
 //Value Computed by CMake
-googletest-distribution_SOURCE_DIR:STATIC=/home/lev/ilab_3_sem/Test
+googletest-distribution_SOURCE_DIR:STATIC=/home/lev/ilab_3_sem/Matrix/Google_test_rep
 
 //Value Computed by CMake
-gtest_BINARY_DIR:STATIC=/home/lev/ilab_3_sem/Matrix/build/Test/googletest
+gtest_BINARY_DIR:STATIC=/home/lev/ilab_3_sem/Matrix/build/Google_test_rep/googletest
 
 //Value Computed by CMake
-gtest_SOURCE_DIR:STATIC=/home/lev/ilab_3_sem/Test/googletest
+gtest_SOURCE_DIR:STATIC=/home/lev/ilab_3_sem/Matrix/Google_test_rep/googletest
 
 //Build gtest's sample programs.
 gtest_build_samples:BOOL=OFF
@@ -532,7 +532,7 @@ _Python_EXECUTABLE-ADVANCED:INTERNAL=1
 _Python_INTERPRETER_SIGNATURE-ADVANCED:INTERNAL=1
 _Python_INTERPRETER_SIGNATURE:INTERNAL=60fbcba4d3ec42cb22d9b25de2c7c03a
 cmake_package_name:INTERNAL=GTest
-generated_dir:INTERNAL=/home/lev/ilab_3_sem/Matrix/build/Test/googletest/generated
+generated_dir:INTERNAL=/home/lev/ilab_3_sem/Matrix/build/Google_test_rep/googletest/generated
 //ADVANCED property for variable: gmock_build_tests
 gmock_build_tests-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: gtest_build_samples

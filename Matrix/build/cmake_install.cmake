@@ -39,7 +39,7 @@ endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for each subdirectory.
-  include("/home/lev/ilab_3_sem/Matrix/build/Test/cmake_install.cmake")
+  include("/home/lev/ilab_3_sem/Matrix/build/Google_test_rep/cmake_install.cmake")
 
 endif()
 

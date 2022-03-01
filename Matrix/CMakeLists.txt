@@ -1,16 +1,14 @@
 cmake_minimum_required(VERSION 3.1)
 
-# так пишутся комментарии
 
 project(Matrix)
 
 add_subdirectory(
-    "${CMAKE_CURRENT_SOURCE_DIR}/../Test"
-    "Test"   
+    "${CMAKE_CURRENT_SOURCE_DIR}/Google_test_rep"
 )
 add_executable(
     test_matrix
-    Google_test/test_matrix.cpp
+    Unit_test/test_matrix.cpp
 )
 
 add_executable(
