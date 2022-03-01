@@ -1,1 +1,0 @@
-/usr/bin/c++   -Wall -Wextra -Werror -g  -rdynamic CMakeFiles/test_matrix.dir/Unit_test/test_matrix.cpp.o  -o test_matrix  lib/libgtest.a lib/libgtest_main.a lib/libgtest.a -lpthread 

@@ -1,1 +1,0 @@
-/usr/bin/c++   -Wall -Wextra -Werror -g  -rdynamic CMakeFiles/Test_maker.dir/Tests/Test_maker.cpp.o  -o Test_maker 
