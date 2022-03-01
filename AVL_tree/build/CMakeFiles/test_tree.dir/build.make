@@ -57,27 +57,27 @@ include CMakeFiles/test_tree.dir/progress.make
 # Include the compile flags for this target's objects.
 include CMakeFiles/test_tree.dir/flags.make
 
-CMakeFiles/test_tree.dir/Google_test/test_tree.cpp.o: CMakeFiles/test_tree.dir/flags.make
-CMakeFiles/test_tree.dir/Google_test/test_tree.cpp.o: ../Google_test/test_tree.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/lev/ilab_3_sem/AVL_tree/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/test_tree.dir/Google_test/test_tree.cpp.o"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/test_tree.dir/Google_test/test_tree.cpp.o -c /home/lev/ilab_3_sem/AVL_tree/Google_test/test_tree.cpp
+CMakeFiles/test_tree.dir/Unit_test/test_tree.cpp.o: CMakeFiles/test_tree.dir/flags.make
+CMakeFiles/test_tree.dir/Unit_test/test_tree.cpp.o: ../Unit_test/test_tree.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/lev/ilab_3_sem/AVL_tree/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/test_tree.dir/Unit_test/test_tree.cpp.o"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/test_tree.dir/Unit_test/test_tree.cpp.o -c /home/lev/ilab_3_sem/AVL_tree/Unit_test/test_tree.cpp
 
-CMakeFiles/test_tree.dir/Google_test/test_tree.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/test_tree.dir/Google_test/test_tree.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/lev/ilab_3_sem/AVL_tree/Google_test/test_tree.cpp > CMakeFiles/test_tree.dir/Google_test/test_tree.cpp.i
+CMakeFiles/test_tree.dir/Unit_test/test_tree.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/test_tree.dir/Unit_test/test_tree.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/lev/ilab_3_sem/AVL_tree/Unit_test/test_tree.cpp > CMakeFiles/test_tree.dir/Unit_test/test_tree.cpp.i
 
-CMakeFiles/test_tree.dir/Google_test/test_tree.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/test_tree.dir/Google_test/test_tree.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/lev/ilab_3_sem/AVL_tree/Google_test/test_tree.cpp -o CMakeFiles/test_tree.dir/Google_test/test_tree.cpp.s
+CMakeFiles/test_tree.dir/Unit_test/test_tree.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/test_tree.dir/Unit_test/test_tree.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/lev/ilab_3_sem/AVL_tree/Unit_test/test_tree.cpp -o CMakeFiles/test_tree.dir/Unit_test/test_tree.cpp.s
 
 # Object files for target test_tree
 test_tree_OBJECTS = \
-"CMakeFiles/test_tree.dir/Google_test/test_tree.cpp.o"
+"CMakeFiles/test_tree.dir/Unit_test/test_tree.cpp.o"
 
 # External object files for target test_tree
 test_tree_EXTERNAL_OBJECTS =
 
-test_tree: CMakeFiles/test_tree.dir/Google_test/test_tree.cpp.o
+test_tree: CMakeFiles/test_tree.dir/Unit_test/test_tree.cpp.o
 test_tree: CMakeFiles/test_tree.dir/build.make
 test_tree: lib/libgtest.a
 test_tree: lib/libgtest_main.a

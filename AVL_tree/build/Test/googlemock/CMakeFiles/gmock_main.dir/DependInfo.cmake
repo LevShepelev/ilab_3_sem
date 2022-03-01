@@ -4,16 +4,16 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
-  "/home/lev/ilab_3_sem/Test/googlemock/src/gmock_main.cc" "/home/lev/ilab_3_sem/AVL_tree/build/Test/googlemock/CMakeFiles/gmock_main.dir/src/gmock_main.cc.o"
+  "/home/lev/ilab_3_sem/AVL_tree/Google_test_rep/googlemock/src/gmock_main.cc" "/home/lev/ilab_3_sem/AVL_tree/build/Test/googlemock/CMakeFiles/gmock_main.dir/src/gmock_main.cc.o"
   )
 set(CMAKE_CXX_COMPILER_ID "GNU")
 
 # The include file search paths:
 set(CMAKE_CXX_TARGET_INCLUDE_PATH
-  "/home/lev/ilab_3_sem/Test/googlemock/include"
-  "/home/lev/ilab_3_sem/Test/googlemock"
-  "/home/lev/ilab_3_sem/Test/googletest/include"
-  "/home/lev/ilab_3_sem/Test/googletest"
+  "../Google_test_rep/googlemock/include"
+  "../Google_test_rep/googlemock"
+  "../Google_test_rep/googletest/include"
+  "../Google_test_rep/googletest"
   )
 
 # Targets to which this target links.

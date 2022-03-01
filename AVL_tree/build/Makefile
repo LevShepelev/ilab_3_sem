@@ -192,7 +192,7 @@ gmock_main: cmake_check_build_system
 
 # fast build rule for target.
 gmock_main/fast:
-	$(MAKE) -f Test/googlemock/CMakeFiles/gmock_main.dir/build.make Test/googlemock/CMakeFiles/gmock_main.dir/build
+	$(MAKE) -f Google_test_rep/googlemock/CMakeFiles/gmock_main.dir/build.make Google_test_rep/googlemock/CMakeFiles/gmock_main.dir/build
 .PHONY : gmock_main/fast
 
 #=============================================================================
@@ -205,7 +205,7 @@ gmock: cmake_check_build_system
 
 # fast build rule for target.
 gmock/fast:
-	$(MAKE) -f Test/googlemock/CMakeFiles/gmock.dir/build.make Test/googlemock/CMakeFiles/gmock.dir/build
+	$(MAKE) -f Google_test_rep/googlemock/CMakeFiles/gmock.dir/build.make Google_test_rep/googlemock/CMakeFiles/gmock.dir/build
 .PHONY : gmock/fast
 
 #=============================================================================
@@ -218,7 +218,7 @@ gtest_main: cmake_check_build_system
 
 # fast build rule for target.
 gtest_main/fast:
-	$(MAKE) -f Test/googletest/CMakeFiles/gtest_main.dir/build.make Test/googletest/CMakeFiles/gtest_main.dir/build
+	$(MAKE) -f Google_test_rep/googletest/CMakeFiles/gtest_main.dir/build.make Google_test_rep/googletest/CMakeFiles/gtest_main.dir/build
 .PHONY : gtest_main/fast
 
 #=============================================================================
@@ -231,35 +231,35 @@ gtest: cmake_check_build_system
 
 # fast build rule for target.
 gtest/fast:
-	$(MAKE) -f Test/googletest/CMakeFiles/gtest.dir/build.make Test/googletest/CMakeFiles/gtest.dir/build
+	$(MAKE) -f Google_test_rep/googletest/CMakeFiles/gtest.dir/build.make Google_test_rep/googletest/CMakeFiles/gtest.dir/build
 .PHONY : gtest/fast
 
-Google_test/test_tree.o: Google_test/test_tree.cpp.o
+Unit_test/test_tree.o: Unit_test/test_tree.cpp.o
 
-.PHONY : Google_test/test_tree.o
+.PHONY : Unit_test/test_tree.o
 
 # target to build an object file
-Google_test/test_tree.cpp.o:
-	$(MAKE) -f CMakeFiles/test_tree.dir/build.make CMakeFiles/test_tree.dir/Google_test/test_tree.cpp.o
-.PHONY : Google_test/test_tree.cpp.o
+Unit_test/test_tree.cpp.o:
+	$(MAKE) -f CMakeFiles/test_tree.dir/build.make CMakeFiles/test_tree.dir/Unit_test/test_tree.cpp.o
+.PHONY : Unit_test/test_tree.cpp.o
 
-Google_test/test_tree.i: Google_test/test_tree.cpp.i
+Unit_test/test_tree.i: Unit_test/test_tree.cpp.i
 
-.PHONY : Google_test/test_tree.i
+.PHONY : Unit_test/test_tree.i
 
 # target to preprocess a source file
-Google_test/test_tree.cpp.i:
-	$(MAKE) -f CMakeFiles/test_tree.dir/build.make CMakeFiles/test_tree.dir/Google_test/test_tree.cpp.i
-.PHONY : Google_test/test_tree.cpp.i
+Unit_test/test_tree.cpp.i:
+	$(MAKE) -f CMakeFiles/test_tree.dir/build.make CMakeFiles/test_tree.dir/Unit_test/test_tree.cpp.i
+.PHONY : Unit_test/test_tree.cpp.i
 
-Google_test/test_tree.s: Google_test/test_tree.cpp.s
+Unit_test/test_tree.s: Unit_test/test_tree.cpp.s
 
-.PHONY : Google_test/test_tree.s
+.PHONY : Unit_test/test_tree.s
 
 # target to generate assembly for a file
-Google_test/test_tree.cpp.s:
-	$(MAKE) -f CMakeFiles/test_tree.dir/build.make CMakeFiles/test_tree.dir/Google_test/test_tree.cpp.s
-.PHONY : Google_test/test_tree.cpp.s
+Unit_test/test_tree.cpp.s:
+	$(MAKE) -f CMakeFiles/test_tree.dir/build.make CMakeFiles/test_tree.dir/Unit_test/test_tree.cpp.s
+.PHONY : Unit_test/test_tree.cpp.s
 
 source/AVL_tree.o: source/AVL_tree.cpp.o
 
@@ -306,9 +306,9 @@ help:
 	@echo "... gmock"
 	@echo "... gtest_main"
 	@echo "... gtest"
-	@echo "... Google_test/test_tree.o"
-	@echo "... Google_test/test_tree.i"
-	@echo "... Google_test/test_tree.s"
+	@echo "... Unit_test/test_tree.o"
+	@echo "... Unit_test/test_tree.i"
+	@echo "... Unit_test/test_tree.s"
 	@echo "... source/AVL_tree.o"
 	@echo "... source/AVL_tree.i"
 	@echo "... source/AVL_tree.s"

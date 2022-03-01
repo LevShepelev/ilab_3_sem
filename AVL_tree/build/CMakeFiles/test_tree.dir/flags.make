@@ -6,5 +6,5 @@ CXX_FLAGS =  -Wall -Wextra -Werror -g
 
 CXX_DEFINES = 
 
-CXX_INCLUDES = -I/home/lev/ilab_3_sem/AVL_tree/source -I/home/lev/ilab_3_sem/AVL_tree/includes -isystem /home/lev/ilab_3_sem/Test/googletest/include -isystem /home/lev/ilab_3_sem/Test/googletest 
+CXX_INCLUDES = -I/home/lev/ilab_3_sem/AVL_tree/source -I/home/lev/ilab_3_sem/AVL_tree/includes -isystem /home/lev/ilab_3_sem/AVL_tree/Google_test_rep/googletest/include -isystem /home/lev/ilab_3_sem/AVL_tree/Google_test_rep/googletest 
 

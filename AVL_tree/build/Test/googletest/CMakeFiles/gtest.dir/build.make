@@ -58,17 +58,17 @@ include Test/googletest/CMakeFiles/gtest.dir/progress.make
 include Test/googletest/CMakeFiles/gtest.dir/flags.make
 
 Test/googletest/CMakeFiles/gtest.dir/src/gtest-all.cc.o: Test/googletest/CMakeFiles/gtest.dir/flags.make
-Test/googletest/CMakeFiles/gtest.dir/src/gtest-all.cc.o: /home/lev/ilab_3_sem/Test/googletest/src/gtest-all.cc
+Test/googletest/CMakeFiles/gtest.dir/src/gtest-all.cc.o: ../Google_test_rep/googletest/src/gtest-all.cc
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/lev/ilab_3_sem/AVL_tree/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object Test/googletest/CMakeFiles/gtest.dir/src/gtest-all.cc.o"
-	cd /home/lev/ilab_3_sem/AVL_tree/build/Test/googletest && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/gtest.dir/src/gtest-all.cc.o -c /home/lev/ilab_3_sem/Test/googletest/src/gtest-all.cc
+	cd /home/lev/ilab_3_sem/AVL_tree/build/Test/googletest && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/gtest.dir/src/gtest-all.cc.o -c /home/lev/ilab_3_sem/AVL_tree/Google_test_rep/googletest/src/gtest-all.cc
 
 Test/googletest/CMakeFiles/gtest.dir/src/gtest-all.cc.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/gtest.dir/src/gtest-all.cc.i"
-	cd /home/lev/ilab_3_sem/AVL_tree/build/Test/googletest && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/lev/ilab_3_sem/Test/googletest/src/gtest-all.cc > CMakeFiles/gtest.dir/src/gtest-all.cc.i
+	cd /home/lev/ilab_3_sem/AVL_tree/build/Test/googletest && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/lev/ilab_3_sem/AVL_tree/Google_test_rep/googletest/src/gtest-all.cc > CMakeFiles/gtest.dir/src/gtest-all.cc.i
 
 Test/googletest/CMakeFiles/gtest.dir/src/gtest-all.cc.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/gtest.dir/src/gtest-all.cc.s"
-	cd /home/lev/ilab_3_sem/AVL_tree/build/Test/googletest && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/lev/ilab_3_sem/Test/googletest/src/gtest-all.cc -o CMakeFiles/gtest.dir/src/gtest-all.cc.s
+	cd /home/lev/ilab_3_sem/AVL_tree/build/Test/googletest && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/lev/ilab_3_sem/AVL_tree/Google_test_rep/googletest/src/gtest-all.cc -o CMakeFiles/gtest.dir/src/gtest-all.cc.s
 
 # Object files for target gtest
 gtest_OBJECTS = \
@@ -94,6 +94,6 @@ Test/googletest/CMakeFiles/gtest.dir/clean:
 .PHONY : Test/googletest/CMakeFiles/gtest.dir/clean
 
 Test/googletest/CMakeFiles/gtest.dir/depend:
-	cd /home/lev/ilab_3_sem/AVL_tree/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/lev/ilab_3_sem/AVL_tree /home/lev/ilab_3_sem/Test/googletest /home/lev/ilab_3_sem/AVL_tree/build /home/lev/ilab_3_sem/AVL_tree/build/Test/googletest /home/lev/ilab_3_sem/AVL_tree/build/Test/googletest/CMakeFiles/gtest.dir/DependInfo.cmake --color=$(COLOR)
+	cd /home/lev/ilab_3_sem/AVL_tree/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/lev/ilab_3_sem/AVL_tree /home/lev/ilab_3_sem/AVL_tree/Google_test_rep/googletest /home/lev/ilab_3_sem/AVL_tree/build /home/lev/ilab_3_sem/AVL_tree/build/Test/googletest /home/lev/ilab_3_sem/AVL_tree/build/Test/googletest/CMakeFiles/gtest.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : Test/googletest/CMakeFiles/gtest.dir/depend
 

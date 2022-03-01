@@ -58,17 +58,17 @@ include Test/googlemock/CMakeFiles/gmock_main.dir/progress.make
 include Test/googlemock/CMakeFiles/gmock_main.dir/flags.make
 
 Test/googlemock/CMakeFiles/gmock_main.dir/src/gmock_main.cc.o: Test/googlemock/CMakeFiles/gmock_main.dir/flags.make
-Test/googlemock/CMakeFiles/gmock_main.dir/src/gmock_main.cc.o: /home/lev/ilab_3_sem/Test/googlemock/src/gmock_main.cc
+Test/googlemock/CMakeFiles/gmock_main.dir/src/gmock_main.cc.o: ../Google_test_rep/googlemock/src/gmock_main.cc
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/lev/ilab_3_sem/AVL_tree/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object Test/googlemock/CMakeFiles/gmock_main.dir/src/gmock_main.cc.o"
-	cd /home/lev/ilab_3_sem/AVL_tree/build/Test/googlemock && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/gmock_main.dir/src/gmock_main.cc.o -c /home/lev/ilab_3_sem/Test/googlemock/src/gmock_main.cc
+	cd /home/lev/ilab_3_sem/AVL_tree/build/Test/googlemock && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/gmock_main.dir/src/gmock_main.cc.o -c /home/lev/ilab_3_sem/AVL_tree/Google_test_rep/googlemock/src/gmock_main.cc
 
 Test/googlemock/CMakeFiles/gmock_main.dir/src/gmock_main.cc.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/gmock_main.dir/src/gmock_main.cc.i"
-	cd /home/lev/ilab_3_sem/AVL_tree/build/Test/googlemock && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/lev/ilab_3_sem/Test/googlemock/src/gmock_main.cc > CMakeFiles/gmock_main.dir/src/gmock_main.cc.i
+	cd /home/lev/ilab_3_sem/AVL_tree/build/Test/googlemock && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/lev/ilab_3_sem/AVL_tree/Google_test_rep/googlemock/src/gmock_main.cc > CMakeFiles/gmock_main.dir/src/gmock_main.cc.i
 
 Test/googlemock/CMakeFiles/gmock_main.dir/src/gmock_main.cc.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/gmock_main.dir/src/gmock_main.cc.s"
-	cd /home/lev/ilab_3_sem/AVL_tree/build/Test/googlemock && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/lev/ilab_3_sem/Test/googlemock/src/gmock_main.cc -o CMakeFiles/gmock_main.dir/src/gmock_main.cc.s
+	cd /home/lev/ilab_3_sem/AVL_tree/build/Test/googlemock && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/lev/ilab_3_sem/AVL_tree/Google_test_rep/googlemock/src/gmock_main.cc -o CMakeFiles/gmock_main.dir/src/gmock_main.cc.s
 
 # Object files for target gmock_main
 gmock_main_OBJECTS = \
@@ -94,6 +94,6 @@ Test/googlemock/CMakeFiles/gmock_main.dir/clean:
 .PHONY : Test/googlemock/CMakeFiles/gmock_main.dir/clean
 
 Test/googlemock/CMakeFiles/gmock_main.dir/depend:
-	cd /home/lev/ilab_3_sem/AVL_tree/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/lev/ilab_3_sem/AVL_tree /home/lev/ilab_3_sem/Test/googlemock /home/lev/ilab_3_sem/AVL_tree/build /home/lev/ilab_3_sem/AVL_tree/build/Test/googlemock /home/lev/ilab_3_sem/AVL_tree/build/Test/googlemock/CMakeFiles/gmock_main.dir/DependInfo.cmake --color=$(COLOR)
+	cd /home/lev/ilab_3_sem/AVL_tree/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/lev/ilab_3_sem/AVL_tree /home/lev/ilab_3_sem/AVL_tree/Google_test_rep/googlemock /home/lev/ilab_3_sem/AVL_tree/build /home/lev/ilab_3_sem/AVL_tree/build/Test/googlemock /home/lev/ilab_3_sem/AVL_tree/build/Test/googlemock/CMakeFiles/gmock_main.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : Test/googlemock/CMakeFiles/gmock_main.dir/depend
 

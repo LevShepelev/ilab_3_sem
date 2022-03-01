@@ -1,4 +1,4 @@
-# Install script for directory: /home/lev/ilab_3_sem/Test
+# Install script for directory: /home/lev/ilab_3_sem/AVL_tree/Google_test_rep
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)

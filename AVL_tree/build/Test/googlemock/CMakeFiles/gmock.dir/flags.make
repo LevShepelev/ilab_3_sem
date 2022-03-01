@@ -6,5 +6,5 @@ CXX_FLAGS =   -Wall -Wshadow -Wno-error=dangling-else -DGTEST_HAS_PTHREAD=1 -fex
 
 CXX_DEFINES = 
 
-CXX_INCLUDES = -I/home/lev/ilab_3_sem/Test/googlemock/include -I/home/lev/ilab_3_sem/Test/googlemock -isystem /home/lev/ilab_3_sem/Test/googletest/include -isystem /home/lev/ilab_3_sem/Test/googletest 
+CXX_INCLUDES = -I/home/lev/ilab_3_sem/AVL_tree/Google_test_rep/googlemock/include -I/home/lev/ilab_3_sem/AVL_tree/Google_test_rep/googlemock -isystem /home/lev/ilab_3_sem/AVL_tree/Google_test_rep/googletest/include -isystem /home/lev/ilab_3_sem/AVL_tree/Google_test_rep/googletest 
 

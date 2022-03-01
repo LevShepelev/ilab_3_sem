@@ -8,18 +8,18 @@ set(CMAKE_DEPENDS_GENERATOR "Unix Makefiles")
 set(CMAKE_MAKEFILE_DEPENDS
   "CMakeCache.txt"
   "../CMakeLists.txt"
+  "../Google_test_rep/CMakeLists.txt"
+  "../Google_test_rep/googlemock/CMakeLists.txt"
+  "../Google_test_rep/googlemock/cmake/gmock.pc.in"
+  "../Google_test_rep/googlemock/cmake/gmock_main.pc.in"
+  "../Google_test_rep/googletest/CMakeLists.txt"
+  "../Google_test_rep/googletest/cmake/Config.cmake.in"
+  "../Google_test_rep/googletest/cmake/gtest.pc.in"
+  "../Google_test_rep/googletest/cmake/gtest_main.pc.in"
+  "../Google_test_rep/googletest/cmake/internal_utils.cmake"
   "CMakeFiles/3.16.3/CMakeCCompiler.cmake"
   "CMakeFiles/3.16.3/CMakeCXXCompiler.cmake"
   "CMakeFiles/3.16.3/CMakeSystem.cmake"
-  "/home/lev/ilab_3_sem/Test/CMakeLists.txt"
-  "/home/lev/ilab_3_sem/Test/googlemock/CMakeLists.txt"
-  "/home/lev/ilab_3_sem/Test/googlemock/cmake/gmock.pc.in"
-  "/home/lev/ilab_3_sem/Test/googlemock/cmake/gmock_main.pc.in"
-  "/home/lev/ilab_3_sem/Test/googletest/CMakeLists.txt"
-  "/home/lev/ilab_3_sem/Test/googletest/cmake/Config.cmake.in"
-  "/home/lev/ilab_3_sem/Test/googletest/cmake/gtest.pc.in"
-  "/home/lev/ilab_3_sem/Test/googletest/cmake/gtest_main.pc.in"
-  "/home/lev/ilab_3_sem/Test/googletest/cmake/internal_utils.cmake"
   "/usr/share/cmake-3.16/Modules/BasicConfigVersion-AnyNewerVersion.cmake.in"
   "/usr/share/cmake-3.16/Modules/CMakeCInformation.cmake"
   "/usr/share/cmake-3.16/Modules/CMakeCXXInformation.cmake"
@@ -63,17 +63,17 @@ set(CMAKE_MAKEFILE_OUTPUTS
 # Byproducts of CMake generate step:
 set(CMAKE_MAKEFILE_PRODUCTS
   "CMakeFiles/CMakeDirectoryInformation.cmake"
-  "Test/CMakeFiles/CMakeDirectoryInformation.cmake"
-  "Test/googlemock/CMakeFiles/CMakeDirectoryInformation.cmake"
-  "Test/googletest/CMakeFiles/CMakeDirectoryInformation.cmake"
+  "Google_test_rep/CMakeFiles/CMakeDirectoryInformation.cmake"
+  "Google_test_rep/googlemock/CMakeFiles/CMakeDirectoryInformation.cmake"
+  "Google_test_rep/googletest/CMakeFiles/CMakeDirectoryInformation.cmake"
   )
 
 # Dependency information for all targets:
 set(CMAKE_DEPEND_INFO_FILES
   "CMakeFiles/AVL_tree.dir/DependInfo.cmake"
   "CMakeFiles/test_tree.dir/DependInfo.cmake"
-  "Test/googlemock/CMakeFiles/gmock_main.dir/DependInfo.cmake"
-  "Test/googlemock/CMakeFiles/gmock.dir/DependInfo.cmake"
-  "Test/googletest/CMakeFiles/gtest_main.dir/DependInfo.cmake"
-  "Test/googletest/CMakeFiles/gtest.dir/DependInfo.cmake"
+  "Google_test_rep/googlemock/CMakeFiles/gmock_main.dir/DependInfo.cmake"
+  "Google_test_rep/googlemock/CMakeFiles/gmock.dir/DependInfo.cmake"
+  "Google_test_rep/googletest/CMakeFiles/gtest_main.dir/DependInfo.cmake"
+  "Google_test_rep/googletest/CMakeFiles/gtest.dir/DependInfo.cmake"
   )
