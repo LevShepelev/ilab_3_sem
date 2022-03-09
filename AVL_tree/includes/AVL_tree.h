@@ -1,8 +1,6 @@
 #pragma once
 #include <algorithm>
 #include <iostream>
-#include <unistd.h>
-#include <sys/types.h> 
 #include <iostream>
 #include <fstream>
 
@@ -33,8 +31,8 @@ class Tree final
         void Insert(T key);
         void Erase(T key);
         void Print_tree_to_graphiz() const;
-        void Print_tree(Node_t* node, std::ostream& fout) const;
-        void Graphiz_translation(Node_t* node, std::ostream& fout) const;
+        void Print_tree(Node_t* node, std::ofstream& fout) const;
+        void Graphiz_translation(Node_t* node, std::ofstream& fout) const;
         int K_least_element(int k) const noexcept;
         int Numb_of_elem_less_than(int key) const noexcept;
         int Get_size() const noexcept { return Under(root_); } 
@@ -294,13 +292,12 @@ void Tree<T>::Erase(T key)
         return;
         }
     Node_t* curr = Find_elem(key);       
-    Node_t* min_node;
     if (curr == nullptr)
         return;
     else if (curr -> right != nullptr)
         Delete_if_right_is_not_empty(curr);
     else if (curr -> left != nullptr) 
-        Delete_if_right_is_empty_but_left_not(Node_t* curr);
+        Delete_if_right_is_empty_but_left_not(curr);
     else if (curr -> prev != nullptr)
         {
         if (curr -> prev -> left == curr)
@@ -320,7 +317,7 @@ void Tree<T>::Erase(T key)
 template <typename T>
 void Tree<T>::Delete_if_right_is_not_empty(Node_t* curr)
         {
-        min_node = Search_min(curr -> right);
+        Node_t* min_node = Search_min(curr -> right);
         std::swap(curr -> key, min_node -> key);
         if (min_node == curr -> right)
             {
@@ -359,16 +356,16 @@ void Tree<T>::Delete_if_right_is_empty_but_left_not(Node_t* curr)
 template <typename T>
 void Tree<T>::Print_tree_to_graphiz() const
     {
-    std::ostream fout("graph.txt");
+    std::ofstream fout("graph.txt");
     fout << "digraph G{\n";
     Graphiz_translation(root_, fout);
     fout << "}";
-    //To get png_file with image of the tree enter command "dot graph.txt -T png -o graph_visual.png"   
+    //To get png_file with image of the tree enter command using correct path to graph_visual.png "dot graph.txt -T png -o graph_visual.png"   
     }
 
 
 template <typename T>
-void Tree<T>::Graphiz_translation(Node_t* node, std::ostream& fout) const 
+void Tree<T>::Graphiz_translation(Node_t* node, std::ofstream& fout) const 
             {
             if (node -> left)
                 {
@@ -385,7 +382,7 @@ void Tree<T>::Graphiz_translation(Node_t* node, std::ostream& fout) const
 
 
 template <typename T>
-void Tree<T>::Print_tree(Node_t* node, std::ostream& fout) const
+void Tree<T>::Print_tree(Node_t* node, std::ofstream& fout) const
             {
             if (node == 0)
                 node = root_;
