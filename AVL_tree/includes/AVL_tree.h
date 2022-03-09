@@ -355,6 +355,7 @@ void Tree<T>::Delete_if_right_is_empty_but_left_not(Node_t* curr)
     delete curr -> left;
     }
 
+
 template <typename T>
 void Tree<T>::Print_tree_to_graphiz() const
     {
