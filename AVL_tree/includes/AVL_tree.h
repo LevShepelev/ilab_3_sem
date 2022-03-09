@@ -33,8 +33,8 @@ class Tree final
         void Insert(T key);
         void Erase(T key);
         void Print_tree_to_graphiz() const;
-        void Print_tree(Node_t* node) const;
-        void Graphiz_translation(Node_t* node, FILE* fout) const;
+        void Print_tree(Node_t* node, std::ostream& fout) const;
+        void Graphiz_translation(Node_t* node, std::ostream& fout) const;
         int K_least_element(int k) const noexcept;
         int Numb_of_elem_less_than(int key) const noexcept;
         int Get_size() const noexcept { return Under(root_); } 
@@ -51,6 +51,8 @@ class Tree final
         void Height_update_lift(Node_t* curr) noexcept;
         void Rebalance(Node_t* curr) noexcept;
         void Clear() noexcept;
+        void Delete_if_right_is_not_empty(Node_t* curr);
+        void Delete_if_right_is_empty_but_left_not(Node_t* curr);
         Node_t* Search_min(Node_t* curr) const noexcept;
         Node_t* Find_nearest_node(T key) const noexcept;
         Node_t* Find_elem(T key) const noexcept; 
@@ -296,6 +298,27 @@ void Tree<T>::Erase(T key)
     if (curr == nullptr)
         return;
     else if (curr -> right != nullptr)
+        Delete_if_right_is_not_empty(curr);
+    else if (curr -> left != nullptr) 
+        Delete_if_right_is_empty_but_left_not(Node_t* curr);
+    else if (curr -> prev != nullptr)
+        {
+        if (curr -> prev -> left == curr)
+            curr -> prev -> left = nullptr;
+        else curr -> prev -> right = nullptr;
+        Rebalance(curr);
+        delete curr;
+        }
+    else 
+        {
+        delete curr;
+        root_ = nullptr;
+        }
+    }
+
+
+template <typename T>
+void Tree<T>::Delete_if_right_is_not_empty(Node_t* curr)
         {
         min_node = Search_min(curr -> right);
         std::swap(curr -> key, min_node -> key);
@@ -316,79 +339,62 @@ void Tree<T>::Erase(T key)
         Rebalance(min_node);
         delete min_node;//right 
         }
-    else if (curr -> left != nullptr) 
-        {
-        curr -> key = curr -> left -> key;
-        if (curr -> left -> left != nullptr)
-            curr -> left -> left -> prev = curr;
-        if (curr -> left -> right != nullptr)
-            curr -> left -> right -> prev = curr;
-        curr -> right = curr -> left -> right;
-        curr -> left = curr -> left -> left;
-        Rebalance(curr);
-        delete curr -> left;
-        }
-    else if (curr -> prev != nullptr)
-        {
-        if (curr -> prev -> left == curr)
-            curr -> prev -> left = nullptr;
-        else curr -> prev -> right = nullptr;
-        Rebalance(curr);
-        delete curr;
-        }
-    else 
-        {
-        delete curr;
-        root_ = nullptr;
-        }
-    }
 
+
+template <typename T>
+void Tree<T>::Delete_if_right_is_empty_but_left_not(Node_t* curr)
+    {
+    curr -> key = curr -> left -> key;
+    if (curr -> left -> left != nullptr)
+        curr -> left -> left -> prev = curr;
+    if (curr -> left -> right != nullptr)
+        curr -> left -> right -> prev = curr;
+    curr -> right = curr -> left -> right;
+    curr -> left = curr -> left -> left;
+    Rebalance(curr);
+    delete curr -> left;
+    }
 
 template <typename T>
 void Tree<T>::Print_tree_to_graphiz() const
     {
-    FILE* fout = fopen("graph.txt", "w+");
-    fprintf(fout, "digraph G{\n");
+    std::ostream fout("graph.txt");
+    fout << "digraph G{\n";
     Graphiz_translation(root_, fout);
-    fprintf(fout, "}");
-    fclose(fout);
-    int fork_code = fork();
-    if (fork_code == 0)
-        {
-        system("dot graph.txt -T png -o graph_visual.png");
-        exit(0);
-        }   
+    fout << "}";
+    //To get png_file with image of the tree enter command "dot graph.txt -T png -o graph_visual.png"   
     }
 
 
 template <typename T>
-void Tree<T>::Graphiz_translation(Node_t* node, FILE* fout) const 
+void Tree<T>::Graphiz_translation(Node_t* node, std::ostream& fout) const 
             {
             if (node -> left)
                 {
-                fprintf(fout, "%d -> %d;\n", node -> key, node -> left -> key);
+                fout << node -> key << " -> " << node -> left -> key << ";\n"; 
                 Graphiz_translation(node -> left, fout);
                 }
 
             if (node -> right)
                 {
-                fprintf(fout, "%d -> %d;\n", node -> key, node -> right -> key);
+                fout << node -> key << " -> " << node -> right -> key << ";\n"; 
                 Graphiz_translation(node -> right, fout);
                 }
             }
 
 
 template <typename T>
-void Tree<T>::Print_tree(Node_t* node) const
+void Tree<T>::Print_tree(Node_t* node, std::ostream& fout) const
             {
             if (node == 0)
                 node = root_;
-            printf("{%d} ", node -> key);
+            fout << "{" << node -> key << "} "; 
             if (node -> left)
-                printf("left = {%d} ",  node -> left -> key);
+                fout << "left = {" << node -> left -> key << "} ";
             if (node -> right)
-                printf("right = {%d} ", node -> right -> key);
-            printf("\n");
+                fout << "left = {" << node -> right -> key << "} ";
+            fout << std::endl;
+
             if (node -> left)
                 {
                 Print_tree(node -> left);

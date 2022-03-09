@@ -1,7 +1,5 @@
 cmake_minimum_required(VERSION 3.1)
 
-# так пишутся комментарии
-
 project(AVL_tree)
 
 add_subdirectory(
