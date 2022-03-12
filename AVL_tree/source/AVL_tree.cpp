@@ -5,7 +5,6 @@ int main()
     Tree<int> tr;
     char symb = 0;
     int elem = 0;
-
     std::cin.get(symb);
     while (symb != '\n' || symb != std::cin.eof())
         {

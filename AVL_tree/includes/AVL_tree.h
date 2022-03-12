@@ -444,6 +444,8 @@ int Tree<T>::Numb_of_elem_less_than(int key) const noexcept
     {
     Node_t* curr = root_;
     int ret_value = 0;
+    if (!curr)
+        return 0;
     while (true)
         {
         if (key < curr -> key && curr -> left)
