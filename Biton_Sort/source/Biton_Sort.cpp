@@ -1,6 +1,8 @@
 #include "../include/Biton_Sort.hpp"
 #define COMPARE_CPU
 
+// run "./Biton_Sort 1000" where 1000 - size of array
+
 int main(int, char* argv[]) try {
     std::chrono::high_resolution_clock::time_point TimeStart, TimeFin;\
     double Dur;
