@@ -2,6 +2,7 @@
 #include <iostream>
 #include <cstring>
 #include <cmath>
+#include <vector>
 
 bool Is_zero(double value);
 #define Epsilon 1e-10
@@ -19,12 +20,13 @@ class Matrix final
         Matrix() : size_(0) {}
         Matrix(int size_);
         Matrix (int size, T deter);
-        static Matrix    unitary(int size);
+        static Matrix unitary(int size);
         static Matrix zero_matrix(int size);
         Matrix(const Matrix &rhs);
         Matrix(Matrix &&rhs);
         Matrix& operator=(const Matrix &rhs);
         Matrix& operator=(Matrix &&rhs);
+        Matrix& operator*(Matrix &rhs);
         ~Matrix();
         void Read_matrix(std::istream& in);
         void Print_matrix(std::ostream& out) const;
@@ -33,11 +35,15 @@ class Matrix final
         int Size() const { return size_; };
         int Gauss_algo();
         T Int_Deter();
-        void Decomposition(Matrix* L, Matrix* U);
+        void Decomposition(Matrix* L, Matrix* U, Matrix* P) const;
         void Clear_matrix();
         int Pivoting(int j);
         T* operator[](int x) { return array_[x]; }
         const T* operator[](int x) const { return array_[x]; }
+        static Matrix Solve_low_system(Matrix &P, Matrix &L);     //LY = P
+        static Matrix Solve_upper_system(Matrix &Y, Matrix &U); //UA^-1 = Y
+        static Matrix Reversed_matrix(Matrix &A);
+        static Matrix Multiply(const Matrix &lhs, const Matrix &rhs);
 
     private:
         void Mul_raw(int obj, T value);
@@ -154,18 +160,40 @@ Matrix<T>::~Matrix()
 
 
 template <typename T>
+Matrix<T> Matrix<T>::Multiply(const Matrix &lhs, const Matrix &rhs)
+    {
+    //naive matrix multiplication
+    if (lhs.Size() != rhs.Size())
+        {
+        std::cout << "Wrong sizes of multiplied matrixes" << std::endl;
+        throw;
+        }
+    Matrix<T> res(lhs.Size());
+    res.Clear_matrix();
+    for (int k = 0; k < lhs.Size(); ++k)
+        for (int j = 0; j < lhs.Size(); ++j)
+            for (int i = 0; i < lhs.Size(); ++i)
+                res[k][j] += lhs[k][i] * rhs[i][j];
+    return res;
+    }
+
+
+template <typename T>
 void Matrix<T>::Print_matrix(std::ostream& out) const 
     {
-    out << size_ << std::endl;
     for (int i = 0; i != size_; ++i)
         {
         for (int j = 0; j != size_; ++j)
             {
-            out.width(6);
-            out << array_[i][j] << " ";
+            out.width(10);
+            if (fabs(array_[i][j]) < Epsilon)
+                out << 0 << " ";
+            else 
+                out << array_[i][j] << " ";
             }
         out << std::endl;
         }
+    out << std::endl;
     }
 
 
@@ -229,6 +257,64 @@ Matrix<T> Matrix<T>::zero_matrix(int size)
         for (int j = 0; j != matr.size_; ++j)
             matr.array_[i][j] = 0;
     return matr;
+    }
+
+
+template <typename T>
+Matrix<T> Matrix<T>::Solve_low_system(Matrix<T> &P, Matrix<T> &L)
+    {
+    Matrix<T> Y(L.Size());
+    if (L.Size() != P.Size()) {
+        std::cout << "wrong size of b" << std::endl;
+        return Y;
+    }
+        
+    for (int k = 0; k < L.Size(); ++k)
+        {
+        for (int i = 0; i < L.Size(); ++i)
+            {
+            Y[i][k] = P[i][k];
+            for (int j = 0; j < i; ++j)
+                Y[i][k] -= L[i][j] * Y[j][k];
+            Y[i][k] /= L[i][i];
+            }
+        }
+    return Y;
+    }
+
+
+template <typename T>
+Matrix<T>  Matrix<T>::Solve_upper_system(Matrix<T> &Y, Matrix<T> &U)
+    {
+    Matrix<T> A_inv(U.Size());
+    if (U.Size()!= Y.Size()) {
+        std::cout << "wrong size of b" << std::endl;
+        return A_inv;
+    }
+        
+    for (int k = 0; k < U.Size(); ++k)
+        {
+        for (int i = U.Size() - 1; i >= 0; --i)
+            {
+            A_inv[i][k] = Y[i][k];
+            for (int j = U.Size() - 1; j > i; --j)
+                A_inv[i][k] -= U[i][j] * A_inv[j][k];
+            A_inv[i][k] /= U[i][i];
+            }
+        }
+    return A_inv;
+    }
+
+
+template <typename T>
+Matrix<T>  Matrix<T>::Reversed_matrix(Matrix<T> &A) 
+    {
+    Matrix<T> L(A.Size()), U(A);
+    Matrix<T> P = unitary(A.Size());
+    A.Decomposition(&L, &U, &P);
+    Matrix<T> Y = Solve_low_system(P, L);
+    Matrix<T> A_inv = Solve_upper_system(Y, U);
+    return A_inv;
     }
 
 
@@ -431,18 +517,17 @@ void Matrix<T>::Clear_matrix()
     
 
 template <typename T>
-void Matrix<T>::Decomposition(Matrix<T>* L, Matrix<T>* U)
+void Matrix<T>::Decomposition(Matrix<T>* L, Matrix<T>* U, Matrix<T>* P) const
     { 
     L -> Clear_matrix();
-    *U = *this;
-   
+    
 	for(int i = 0; i < size_; i++)
 		for(int j = i; j < size_; j++)
             {
             if (Is_zero(U -> array_[i][i]))
                 {
                 std::cout << "Cant use this algo, because, some of main minors are degenerate\n";
-                return;
+                throw;
                 }
 
 			L -> array_[j][i] = U -> array_[j][i] / U -> array_[i][i];
@@ -450,6 +535,15 @@ void Matrix<T>::Decomposition(Matrix<T>* L, Matrix<T>* U)
 	
 	for(int k = 1; k < size_; k++)
         {
+        int max_str_index = k - 1;
+        for (int l = k - 1; l < size_; l++) {
+            //std::cout << U -> array_[l][k - 1] << "vs" << U -> array_[max_str_index][k - 1] << std::endl;
+            if ((fabs(U -> array_[l][k - 1]) - fabs(U -> array_[max_str_index][k - 1])) > Epsilon)
+                max_str_index = l;
+        U -> Swap_raw(k - 1, max_str_index);
+        P -> Swap_raw(k - 1, max_str_index);
+        }
+            
         for(int i = k-1; i < size_; i++)
             for(int j = i; j < size_; j++)
                 L -> array_[j][i] = U -> array_[j][i] / U -> array_[i][i];
@@ -465,11 +559,15 @@ void Matrix<T>::Decomposition(Matrix<T>* L, Matrix<T>* U)
 template <typename T>
 T Matrix<T>::LU_determinant()
     {
-    Matrix<T> L(size_), U;
-    Decomposition(&L, &U);
+    Matrix<T> L(size_), U(*this);
+    Matrix<T> P = unitary(size_);
+    P.Print_matrix(std::cout);
+    Decomposition(&L, &U, &P);
     T deter = 1;
+    P.Print_matrix(std::cout);
     
     for (int i = 0; i < size_; i++)
         deter *= L.array_[i][i] * U.array_[i][i];
     return deter;
     }
+

@@ -1,4 +1,4 @@
 *.o
 Matrix
 Test_maker
-/build
+build
